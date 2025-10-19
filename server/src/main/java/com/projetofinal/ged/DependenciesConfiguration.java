@@ -1,0 +1,21 @@
+package com.projetofinal.ged;
+
+import com.projetofinal.ged.adapters.JPAUserRepositoryAdapter;
+import com.projetofinal.ged.adapters.UserServiceAdapter;
+import com.projetofinal.ged.ports.UserRepositoryPort;
+import com.projetofinal.ged.ports.UserServicePort;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class DependenciesConfiguration {
+
+    @Bean
+    UserRepositoryPort userRepositoryPort(){
+        return new JPAUserRepositoryAdapter();
+    }
+    @Bean
+    UserServicePort userServicePort(UserRepositoryPort repositoryPort){
+        return new UserServiceAdapter(repositoryPort);
+    }
+}

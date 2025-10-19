@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres:latest
+    container_name:  ged-db
+    ports: 
+    - "${DB_PORT}:5432"
+    env_file:
+      - .env
+    
