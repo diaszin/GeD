@@ -2,6 +2,9 @@ package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.dtos.UserCreateDTO;
+import com.projetofinal.ged.infra.entities.JPAUserEntity;
+import com.projetofinal.ged.infra.mappers.UserMapper;
+import com.projetofinal.ged.ports.PasswordCriptographyPort;
 import com.projetofinal.ged.ports.UserRepositoryPort;
 import com.projetofinal.ged.ports.UserServicePort;
 import lombok.AllArgsConstructor;
@@ -15,6 +18,7 @@ import java.util.List;
 public class UserServiceAdapter implements UserServicePort {
 
     private final UserRepositoryPort userRepository;
+    private final PasswordCriptographyPort passwordCripto;
 
     @Override
     public List<User> getAll() {
@@ -24,7 +28,10 @@ public class UserServiceAdapter implements UserServicePort {
             String dateInString = "22-01-2015";
             Date date = formatter.parse(dateInString);
 
-            return this.userRepository.getAll();
+            UserMapper mapper = UserMapper.instance;
+            List<JPAUserEntity> allUsers = this.userRepository.getAll();
+
+            return mapper.toDomainUser(allUsers);
         }
         catch (ParseException exception){
             throw  new RuntimeException("Data de aniversário inválido");
@@ -33,7 +40,17 @@ public class UserServiceAdapter implements UserServicePort {
 
     @Override
     public User create(UserCreateDTO userCreateDTO) {
-        return this.userRepository.create(userCreateDTO.email, userCreateDTO.password, userCreateDTO.name, userCreateDTO.birthdayDate);
+        UserMapper mapper =UserMapper.instance;
+
+        User user =  mapper.createDTOToDomainUser(userCreateDTO);
+
+        String hashedPassword = this.passwordCripto.hash(user.getPassword());
+        user.setPassword(hashedPassword);
+
+        JPAUserEntity jpaUserEntity = mapper.toJPAEntity(user);
+        JPAUserEntity recentCreatedUser = this.userRepository.create(jpaUserEntity);
+
+        return mapper.toDomainUser(recentCreatedUser);
     }
 
 
