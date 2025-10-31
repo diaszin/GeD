@@ -1,4 +1,4 @@
-package com.projetofinal.ged.entities;
+package com.projetofinal.ged.infra.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

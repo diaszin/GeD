@@ -1,6 +1,6 @@
 package com.projetofinal.ged.adapters;
 
-import com.projetofinal.ged.entities.JPAUserEntity;
+import com.projetofinal.ged.infra.entities.JPAUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
