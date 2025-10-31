@@ -1,4 +1,4 @@
-package com.projetofinal.ged;
+package com.projetofinal.ged.infra;
 
 import com.projetofinal.ged.adapters.JPAUserRepositoryAdapter;
 import com.projetofinal.ged.adapters.UserServiceAdapter;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DependenciesConfiguration {
+public class BeansConfiguration {
 
     @Bean
     UserRepositoryPort userRepositoryPort(){
