@@ -10,13 +10,14 @@ public class BcryptPasswordCriptographyAdapter implements PasswordCriptographyPo
 
     @Override
     public String hash(String password) {
-        String salt = BCrypt.gensalt();
+        String salt = BCrypt.gensalt(12);
 
         return BCrypt.hashpw(password, salt);
     }
 
     @Override
     public Boolean compare(String purePassword, String hashedPassword) {
+        BCrypt.gensalt(12);
         return BCrypt.checkpw(purePassword, hashedPassword);
     }
 }

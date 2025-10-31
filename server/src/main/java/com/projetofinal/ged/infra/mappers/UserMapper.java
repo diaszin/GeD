@@ -2,6 +2,7 @@ package com.projetofinal.ged.infra.mappers;
 
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.dtos.UserCreateDTO;
+import com.projetofinal.ged.dtos.UserLoginDTO;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -24,4 +25,8 @@ public interface UserMapper {
 
     @Mapping(source = "name", target = "fullName")
     User createDTOToDomainUser(UserCreateDTO dto);
+
+    @Mapping(target = "fullName", ignore = true)
+    @Mapping(target = "birthdayDate", ignore = true)
+    User loginDTOToDomainUser(UserLoginDTO dto);
 }

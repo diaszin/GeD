@@ -24,4 +24,9 @@ public class JPAUserRepositoryAdapter implements UserRepositoryPort {
     public JPAUserEntity create(JPAUserEntity entity) {
          return this.repository.save(entity);
     }
+
+    @Override
+    public JPAUserEntity getByEmail(String email) {
+        return this.repository.findByEmail(email);
+    }
 }

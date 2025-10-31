@@ -2,6 +2,7 @@ package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.dtos.UserCreateDTO;
+import com.projetofinal.ged.dtos.UserLoginDTO;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
 import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.PasswordCriptographyPort;
@@ -13,13 +14,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 public class UserServiceAdapter implements UserServicePort {
 
     private final UserRepositoryPort userRepository;
     private final PasswordCriptographyPort passwordCripto;
-
+    private final UserMapper userMapper = UserMapper.instance;
     @Override
     public List<User> getAll() {
         try{
@@ -28,10 +30,10 @@ public class UserServiceAdapter implements UserServicePort {
             String dateInString = "22-01-2015";
             Date date = formatter.parse(dateInString);
 
-            UserMapper mapper = UserMapper.instance;
+            ;
             List<JPAUserEntity> allUsers = this.userRepository.getAll();
 
-            return mapper.toDomainUser(allUsers);
+            return userMapper.toDomainUser(allUsers);
         }
         catch (ParseException exception){
             throw  new RuntimeException("Data de aniversário inválido");
@@ -39,18 +41,29 @@ public class UserServiceAdapter implements UserServicePort {
     }
 
     @Override
-    public User create(UserCreateDTO userCreateDTO) {
-        UserMapper mapper =UserMapper.instance;
+    public void create(UserCreateDTO userCreateDTO) {
 
-        User user =  mapper.createDTOToDomainUser(userCreateDTO);
+        User user =  userMapper.createDTOToDomainUser(userCreateDTO);
 
         String hashedPassword = this.passwordCripto.hash(user.getPassword());
         user.setPassword(hashedPassword);
 
-        JPAUserEntity jpaUserEntity = mapper.toJPAEntity(user);
-        JPAUserEntity recentCreatedUser = this.userRepository.create(jpaUserEntity);
+        JPAUserEntity jpaUserEntity = userMapper.toJPAEntity(user);
 
-        return mapper.toDomainUser(recentCreatedUser);
+        this.userRepository.create(jpaUserEntity);
+    }
+
+    @Override
+    public Boolean login(UserLoginDTO dto) {
+        User currentUser = userMapper.loginDTOToDomainUser(dto);
+
+        Optional<JPAUserEntity> foundUser = Optional.ofNullable(this.userRepository.getByEmail(currentUser.getEmail()));
+
+        if (foundUser.isEmpty()){
+            return false;
+        }
+
+        return this.passwordCripto.compare(currentUser.getPassword(), foundUser.get().getPassword());
     }
 
 

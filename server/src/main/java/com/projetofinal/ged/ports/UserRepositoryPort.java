@@ -10,4 +10,6 @@ public interface UserRepositoryPort {
     List<JPAUserEntity> getAll();
 
     JPAUserEntity create(JPAUserEntity entity);
+
+    JPAUserEntity getByEmail(String email);
 }
