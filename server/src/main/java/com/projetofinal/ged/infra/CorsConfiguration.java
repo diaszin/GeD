@@ -12,8 +12,8 @@ public class CorsConfiguration implements WebMvcConfigurer {
     private String allowedApps;
 
     public void addCorsMappings(CorsRegistry registry) {
-        String[] apps = allowedApps.split(",");
-        
-        registry.addMapping("/**").allowedOrigins(apps).allowedMethods("*");
+        String[] allowedAppsList = allowedApps.split(",");
+
+        registry.addMapping("/**").allowedOrigins(allowedAppsList).allowedMethods("*");
     }
 }
