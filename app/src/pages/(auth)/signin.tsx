@@ -1,21 +1,28 @@
+import { Auth } from "@/api/Auth";
 import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
+import type { FormEvent } from "react";
 
 
-export default function Login() {
-  return <div className="w-screen h-screen flex items-center justify-center min-h-screen bg-[url('assets/plano-de-fundo-onda.png')]  bg-cover bg-center">
+function signIn(ev: FormEvent<HTMLFormElement>){
+  ev.preventDefault()
+  Auth.signIn("kaiquedias2013@gmail.com", "bahia1234")
+}
+
+export default function LoginPage() {
+  return <div className="w-screen h-screen flex items-center justify-center min-h-screen">
       <div className="flex flex-1 flex-col justify-center px-4 py-10 lg:px-6">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h3 className="mt-2 text-center text-lg font-bold text-foreground dark:text-foreground">
-            Seus arquivos. Seus dados. Tudo em um só lugar.
+            Crie sua conta e coloque tudo em ordem hoje.
           </h3>
         </div>
 
         <Card className="mt-4 sm:mx-auto sm:w-full sm:max-w-md bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-100">
           <CardContent>
-            <form action="#" method="post" className="space-y-4">
+            <form onSubmit={signIn} className="space-y-4">
 
               <div>
                 <Label
@@ -57,12 +64,12 @@ export default function Login() {
         </Card>
 
         <p className="mt-6 text-center text-sm text-muted-foreground dark:text-muted-foreground">
-          Já tem uma conta?{" "}
+          Não tenho conta!{" "}
           <a
-            href="#"
+            href="/signup"
             className="font-medium text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
           >
-            Entre novamente
+            Quero me cadastrar
           </a>
         </p>
       </div>
