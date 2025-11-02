@@ -11,5 +11,5 @@ public interface UserServicePort {
 
     void create(UserCreateDTO userCreateDTO);
 
-    Boolean login(User user);
+    String login(User user);
 }

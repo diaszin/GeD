@@ -1,5 +1,6 @@
 package com.projetofinal.ged.controllers;
 
+import com.projetofinal.ged.controllers.responses.UserTokenResponse;
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.dtos.UserCreateDTO;
 import com.projetofinal.ged.dtos.UserLoginDTO;
@@ -35,14 +36,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> signIn(@RequestBody() UserLoginDTO dto){
+    public ResponseEntity<UserTokenResponse> signIn(@RequestBody() UserLoginDTO dto){
         User currentUser = userMapper.loginDTOToDomainUser(dto);
-        Boolean isAuthenticated = this.userService.login(currentUser);
+        String token = this.userService.login(currentUser);
 
-        if(!isAuthenticated){
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(new UserTokenResponse("Usuário encontrado", token), HttpStatus.OK);
     }
 }

@@ -16,8 +16,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                     authorize -> authorize
-                            .requestMatchers("/**").permitAll() // permite TODAS as rotas e métodos
-                            .anyRequest().permitAll()
+                            .requestMatchers("/user/**").permitAll() // permite TODAS as rotas e métodos
+                            .requestMatchers("/user/login").permitAll()
+                            .anyRequest().authenticated()
             );
 
         return http.build();
