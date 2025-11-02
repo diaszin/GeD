@@ -54,16 +54,16 @@ public class UserServiceAdapter implements UserServicePort {
     }
 
     @Override
-    public Boolean login(UserLoginDTO dto) {
-        User currentUser = userMapper.loginDTOToDomainUser(dto);
+    public Boolean login(User user) {
 
-        Optional<JPAUserEntity> foundUser = Optional.ofNullable(this.userRepository.getByEmail(currentUser.getEmail()));
+
+        Optional<JPAUserEntity> foundUser = Optional.ofNullable(this.userRepository.getByEmail(user.getEmail()));
 
         if (foundUser.isEmpty()){
             return false;
         }
 
-        return this.passwordCripto.compare(currentUser.getPassword(), foundUser.get().getPassword());
+        return this.passwordCripto.compare(user.getPassword(), foundUser.get().getPassword());
     }
 
 

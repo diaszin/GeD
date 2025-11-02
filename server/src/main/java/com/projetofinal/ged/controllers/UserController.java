@@ -3,6 +3,7 @@ package com.projetofinal.ged.controllers;
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.dtos.UserCreateDTO;
 import com.projetofinal.ged.dtos.UserLoginDTO;
+import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.UserServicePort;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class UserController {
         return this.userService.getAll();
     }
 
+    private final UserMapper userMapper = UserMapper.instance;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void signUp(@RequestBody() UserCreateDTO dto){
@@ -33,7 +36,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Void> signIn(@RequestBody() UserLoginDTO dto){
-        Boolean isAuthenticated = this.userService.login(dto);
+        User currentUser = userMapper.loginDTOToDomainUser(dto);
+        Boolean isAuthenticated = this.userService.login(currentUser);
 
         if(!isAuthenticated){
             return ResponseEntity.notFound().build();
