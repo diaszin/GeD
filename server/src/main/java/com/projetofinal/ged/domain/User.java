@@ -15,7 +15,8 @@ public class User {
     private Date birthdayDate;
 
 
-    public User(String fullName, String email, String password, Date birthdayDate) {
+    public User(Long id, String fullName, String email, String password, Date birthdayDate) {
+        this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -57,5 +58,13 @@ public class User {
 
     public void setBirthdayDate(Date birthdayDate) {
         this.birthdayDate = birthdayDate;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

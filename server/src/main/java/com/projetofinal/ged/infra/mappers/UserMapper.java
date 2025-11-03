@@ -21,12 +21,16 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     JPAUserEntity toJPAEntity(User user);
 
+    @Mapping(target = "id", ignore = true)
     User toDomainUser(JPAUserEntity entity);
 
+
     @Mapping(source = "name", target = "fullName")
+    @Mapping(target = "id", ignore = true)
     User createDTOToDomainUser(UserCreateDTO dto);
 
     @Mapping(target = "fullName", ignore = true)
     @Mapping(target = "birthdayDate", ignore = true)
+    @Mapping(target = "id", ignore = true)
     User loginDTOToDomainUser(UserLoginDTO dto);
 }

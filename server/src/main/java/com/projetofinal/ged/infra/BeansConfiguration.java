@@ -32,4 +32,14 @@ public class BeansConfiguration {
     AuthCurrentUserPort authCurrentUserPort(UserServicePort userServicePort){
         return new JWTAuthCurrentUserAdapter(userServicePort);
     }
+
+    @Bean
+    ProjectRepositoryPort projectRepositoryPort(){
+        return new JPAProjectRepositoryAdapter();
+    }
+
+    @Bean
+    ProjectServicePort projectServicePort(ProjectRepositoryPort projectRepositoryPort){
+        return new ProjectServiceAdapter(projectRepositoryPort);
+    }
 }

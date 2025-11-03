@@ -79,7 +79,14 @@ public class UserServiceAdapter implements UserServicePort {
     public User getByEmail(String email){
         Optional<JPAUserEntity> jpaUserEntity = Optional.ofNullable(this.userRepository.getByEmail(email));
 
-        return jpaUserEntity.map(userMapper::toDomainUser).orElse(null);
+        if(jpaUserEntity.isEmpty()){
+            return null;
+        }
+
+        User user = userMapper.toDomainUser(jpaUserEntity.get());
+        user.setId(jpaUserEntity.get().id);
+
+        return user;
 
     }
 
