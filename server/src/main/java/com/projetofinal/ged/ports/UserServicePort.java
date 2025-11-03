@@ -1,8 +1,7 @@
 package com.projetofinal.ged.ports;
 
 import com.projetofinal.ged.domain.User;
-import com.projetofinal.ged.dtos.UserCreateDTO;
-import com.projetofinal.ged.dtos.UserLoginDTO;
+import com.projetofinal.ged.application.dtos.UserCreateDTO;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.User;
-import com.projetofinal.ged.dtos.UserCreateDTO;
-import com.projetofinal.ged.dtos.UserLoginDTO;
+import com.projetofinal.ged.application.dtos.UserCreateDTO;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
 import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.AuthServicePort;

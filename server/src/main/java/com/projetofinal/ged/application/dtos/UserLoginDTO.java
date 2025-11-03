@@ -1,4 +1,4 @@
-package com.projetofinal.ged.dtos;
+package com.projetofinal.ged.application.dtos;
 
 
 

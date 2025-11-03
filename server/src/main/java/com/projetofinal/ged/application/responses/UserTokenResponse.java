@@ -1,4 +1,4 @@
-package com.projetofinal.ged.controllers.responses;
+package com.projetofinal.ged.application.responses;
 
 import lombok.AllArgsConstructor;
 
