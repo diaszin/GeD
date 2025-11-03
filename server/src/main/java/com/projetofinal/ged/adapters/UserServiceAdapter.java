@@ -75,5 +75,12 @@ public class UserServiceAdapter implements UserServicePort {
         return this.authService.generateToken(foundUser.get().getEmail());
     }
 
+    @Override
+    public User getByEmail(String email){
+        Optional<JPAUserEntity> jpaUserEntity = Optional.ofNullable(this.userRepository.getByEmail(email));
+
+        return jpaUserEntity.map(userMapper::toDomainUser).orElse(null);
+
+    }
 
 }

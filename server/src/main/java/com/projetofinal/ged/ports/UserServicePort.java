@@ -11,4 +11,5 @@ public interface UserServicePort {
     void create(UserCreateDTO userCreateDTO);
 
     String login(User user);
+    User getByEmail(String email);
 }

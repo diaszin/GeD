@@ -29,7 +29,7 @@ public class BeansConfiguration {
     }
 
     @Bean
-    AuthCurrentUserPort authCurrentUserPort(){
-        return new JWTAuthCurrentUserAdapter();
+    AuthCurrentUserPort authCurrentUserPort(UserServicePort userServicePort){
+        return new JWTAuthCurrentUserAdapter(userServicePort);
     }
 }

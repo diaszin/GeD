@@ -14,15 +14,12 @@ public class User {
     private String password;
     private Date birthdayDate;
 
+
     public User(String fullName, String email, String password, Date birthdayDate) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.birthdayDate = birthdayDate;
-    }
-
-    public User(String email){
-        this.email = email;
     }
 
     public void setFullName(String fullName) throws Exception {

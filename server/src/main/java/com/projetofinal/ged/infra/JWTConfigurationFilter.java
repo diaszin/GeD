@@ -1,8 +1,10 @@
 package com.projetofinal.ged.infra;
 
 import com.projetofinal.ged.adapters.JWTAuthServiceAdapter;
+import com.projetofinal.ged.ports.AuthServicePort;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -12,9 +14,9 @@ import java.io.IOException;
 
 @Component
 public class JWTConfigurationFilter implements Filter {
-    private final JWTAuthServiceAdapter jwtAuth;
+    private final AuthServicePort jwtAuth;
 
-    public JWTConfigurationFilter(JWTAuthServiceAdapter jwtAuth) {
+    public JWTConfigurationFilter(AuthServicePort jwtAuth) {
         this.jwtAuth = jwtAuth;
     }
 
