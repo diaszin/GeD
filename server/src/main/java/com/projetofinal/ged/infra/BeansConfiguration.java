@@ -1,13 +1,7 @@
 package com.projetofinal.ged.infra;
 
-import com.projetofinal.ged.adapters.BcryptPasswordCriptographyAdapter;
-import com.projetofinal.ged.adapters.JPAUserRepositoryAdapter;
-import com.projetofinal.ged.adapters.JWTAuthServiceAdapter;
-import com.projetofinal.ged.adapters.UserServiceAdapter;
-import com.projetofinal.ged.ports.AuthServicePort;
-import com.projetofinal.ged.ports.PasswordCriptographyPort;
-import com.projetofinal.ged.ports.UserRepositoryPort;
-import com.projetofinal.ged.ports.UserServicePort;
+import com.projetofinal.ged.adapters.*;
+import com.projetofinal.ged.ports.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,5 +26,10 @@ public class BeansConfiguration {
     @Bean
     UserServicePort userServicePort(UserRepositoryPort repositoryPort, PasswordCriptographyPort passwordCriptographyPort, AuthServicePort authServicePort){
         return new UserServiceAdapter(repositoryPort,passwordCriptographyPort, authServicePort);
+    }
+
+    @Bean
+    AuthCurrentUserPort authCurrentUserPort(){
+        return new JWTAuthCurrentUserAdapter();
     }
 }

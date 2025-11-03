@@ -1,5 +1,6 @@
 package com.projetofinal.ged.adapters;
 
+import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.ports.AuthServicePort;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

@@ -21,6 +21,10 @@ public class User {
         this.birthdayDate = birthdayDate;
     }
 
+    public User(String email){
+        this.email = email;
+    }
+
     public void setFullName(String fullName) throws Exception {
         String patternRegexForFullName = "^[A-ZÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛÇ][a-záàâãéèêíìîóòôõúùûç]+ [A-ZÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛÇ][a-záàâãéèêíìîóòôõúùûç]+(?: [A-ZÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛÇ][a-záàâãéèêíìîóòôõúùûç]+)?$";
         if(fullName.matches(patternRegexForFullName)){
