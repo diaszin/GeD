@@ -4,6 +4,7 @@ import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.application.dtos.UserCreateDTO;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
 import com.projetofinal.ged.infra.exceptions.UserNotFound;
+import com.projetofinal.ged.infra.exceptions.UserPasswordNotMatch;
 import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.AuthServicePort;
 import com.projetofinal.ged.ports.PasswordCriptographyPort;
@@ -64,13 +65,13 @@ public class UserServiceAdapter implements UserServicePort {
         Optional<JPAUserEntity> foundUser = Optional.ofNullable(this.userRepository.getByEmail(user.getEmail()));
 
         if (foundUser.isEmpty()){
-            throw new RuntimeException("Usuário não encontrado");
+            throw new UserNotFound();
         }
 
         boolean isPasswordMatch = this.passwordCripto.compare(user.getPassword(), foundUser.get().getPassword());
 
         if(!isPasswordMatch){
-            throw new RuntimeException("Senha incorreta");
+            throw new UserPasswordNotMatch();
         }
 
         return this.authService.generateToken(foundUser.get().getEmail());

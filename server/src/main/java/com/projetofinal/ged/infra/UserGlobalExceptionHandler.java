@@ -1,7 +1,6 @@
 package com.projetofinal.ged.infra;
 
-import com.projetofinal.ged.infra.exceptions.DefaultExceptionResponse;
-import com.projetofinal.ged.infra.exceptions.UserNotFound;
+import com.projetofinal.ged.infra.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +14,10 @@ public class UserGlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UserPasswordNotMatch.class)
+    public ResponseEntity<DefaultExceptionResponse> passwordUserNotMatch(UserPasswordNotMatch error){
+        DefaultExceptionResponse response = new DefaultExceptionResponse(error.getMessage());
 
-
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }
