@@ -3,20 +3,29 @@ import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
 import { AuthToken } from "@/config/AuthToken";
 import { useSignInForm, type SignInFormType } from "@/forms/signin";
+import { useNavigate } from "@/router";
 import { Controller } from "react-hook-form";
 
-function signIn(data: SignInFormType) {
-  return Auth.signIn(data.email, data.password).then((response) => {
-    const token = response.data["token"];
-
-    AuthToken.create(token);
-  });
-}
 
 export default function LoginPage() {
   const form = useSignInForm();
+  const navigate = useNavigate();
+
+
+  
+  function signIn(data: SignInFormType) {
+    return Auth.signIn(data.email, data.password).then((response) => {
+      const token = response.data["token"];
+
+      // Cria token de usuário e redireciona para a página principal
+      AuthToken.create(token);
+      navigate("/projects")
+    });
+  }
+
 
   return (
     <div className="w-screen h-screen flex items-center justify-center min-h-screen">
@@ -81,7 +90,7 @@ export default function LoginPage() {
                 type="submit"
                 className="mt-4 w-full py-2 font-medium"
               >
-                Entrar
+                {form.formState.isSubmitting ? <Spinner/> : "Entrar"}
               </Button>
             </form>
           </CardContent>
