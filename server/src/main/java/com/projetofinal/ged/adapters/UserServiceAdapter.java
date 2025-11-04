@@ -3,6 +3,7 @@ package com.projetofinal.ged.adapters;
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.application.dtos.UserCreateDTO;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
+import com.projetofinal.ged.infra.exceptions.UserNotFound;
 import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.AuthServicePort;
 import com.projetofinal.ged.ports.PasswordCriptographyPort;
@@ -80,7 +81,7 @@ public class UserServiceAdapter implements UserServicePort {
         Optional<JPAUserEntity> jpaUserEntity = Optional.ofNullable(this.userRepository.getByEmail(email));
 
         if(jpaUserEntity.isEmpty()){
-            return null;
+            throw new UserNotFound();
         }
 
         User user = userMapper.toDomainUser(jpaUserEntity.get());
