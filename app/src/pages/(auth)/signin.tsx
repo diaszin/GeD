@@ -3,11 +3,16 @@ import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { AuthToken } from "@/config/AuthToken";
 import { useSignInForm, type SignInFormType } from "@/forms/signin";
 import { Controller } from "react-hook-form";
 
 function signIn(data: SignInFormType) {
-  return Auth.signIn(data.email, data.password);
+  return Auth.signIn(data.email, data.password).then((response) => {
+    const token = response.data["token"];
+
+    AuthToken.create(token);
+  });
 }
 
 export default function LoginPage() {
