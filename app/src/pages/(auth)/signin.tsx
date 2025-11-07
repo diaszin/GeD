@@ -1,12 +1,12 @@
 import { Auth } from "@/api/Auth";
 import { Button } from "@/components/ui/button";
-import { CardContent, Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import  { Card, CardContent } from "@/components/ui/card";
+import  { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { AuthToken } from "@/config/AuthToken";
 import { useSignInForm, type SignInFormType } from "@/forms/signin";
 import { useNavigate } from "@/router";
+import  { Label } from "@radix-ui/react-label";
 import { Controller } from "react-hook-form";
 
 
@@ -45,7 +45,7 @@ export default function LoginPage() {
                 render={({ field }) => (
                   <>
                     <Label
-                      htmlFor="email-login-05"
+                      htmlFor="email"
                       className="text-sm font-medium text-foreground dark:text-foreground"
                     >
                       Digite seu e-mail profissional

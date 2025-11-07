@@ -8,7 +8,6 @@ export class Auth {
 
     const response = await axios.post(url, { email, password });
 
-    console.log(response.status);
 
     return response
   }
@@ -26,9 +25,6 @@ export class Auth {
       name,
       birthdayDate,
     });
-
-    console.log(response.status);
-
 
     return response
   }
