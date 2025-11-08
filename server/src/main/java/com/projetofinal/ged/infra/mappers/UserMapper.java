@@ -1,5 +1,6 @@
 package com.projetofinal.ged.infra.mappers;
 
+import com.projetofinal.ged.application.dtos.out.UserReadDTO;
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.application.dtos.in.UserCreateDTO;
 import com.projetofinal.ged.application.dtos.in.UserLoginDTO;
@@ -33,4 +34,7 @@ public interface UserMapper {
     @Mapping(target = "birthdayDate", ignore = true)
     @Mapping(target = "id", ignore = true)
     User loginDTOToDomainUser(UserLoginDTO dto);
+
+    @Mapping(source = "fullName", target = "name")
+    UserReadDTO domainToReadDTO(User user);
 }

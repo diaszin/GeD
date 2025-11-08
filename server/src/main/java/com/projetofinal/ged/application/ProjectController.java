@@ -1,6 +1,7 @@
 package com.projetofinal.ged.application;
 
 import com.projetofinal.ged.application.dtos.in.ProjectCreateDTO;
+import com.projetofinal.ged.application.dtos.out.ProjectReadDTO;
 import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.infra.mappers.ProjectMapper;
@@ -20,9 +21,9 @@ public class ProjectController {
     private final ProjectMapper mapper = ProjectMapper.instance;
 
     @GetMapping
-    public List<Project> getAllProject(){
+    public List<ProjectReadDTO> getAllProject(){
         User user = authCurrentUserPort.getCurrentUser();
-        return this.projectServicePort.getAllByUser(user);
+        return this.mapper.domainToReadDTO(this.projectServicePort.getAllByUser(user));
     }
 
     @PostMapping

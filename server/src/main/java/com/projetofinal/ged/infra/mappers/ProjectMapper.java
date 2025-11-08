@@ -1,6 +1,7 @@
 package com.projetofinal.ged.infra.mappers;
 
 import com.projetofinal.ged.application.dtos.in.ProjectCreateDTO;
+import com.projetofinal.ged.application.dtos.out.ProjectReadDTO;
 import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.infra.entities.JPAProjectEntity;
 import org.mapstruct.Mapper;
@@ -24,5 +25,6 @@ public interface ProjectMapper {
 
     List<Project> entitiesToDomain(List<JPAProjectEntity> entities);
 
-
+    @Mapping(source = "owner", target = "user")
+    List<ProjectReadDTO> domainToReadDTO(List<Project> domain);
 }
