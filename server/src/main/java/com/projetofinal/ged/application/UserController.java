@@ -2,8 +2,8 @@ package com.projetofinal.ged.application;
 
 import com.projetofinal.ged.application.responses.UserTokenResponse;
 import com.projetofinal.ged.domain.User;
-import com.projetofinal.ged.application.dtos.UserCreateDTO;
-import com.projetofinal.ged.application.dtos.UserLoginDTO;
+import com.projetofinal.ged.application.dtos.in.UserCreateDTO;
+import com.projetofinal.ged.application.dtos.in.UserLoginDTO;
 import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.UserServicePort;
 import lombok.AllArgsConstructor;

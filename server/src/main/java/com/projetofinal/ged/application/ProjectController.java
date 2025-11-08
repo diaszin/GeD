@@ -1,13 +1,12 @@
 package com.projetofinal.ged.application;
 
-import com.projetofinal.ged.application.dtos.ProjectCreateDTO;
+import com.projetofinal.ged.application.dtos.in.ProjectCreateDTO;
 import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.infra.mappers.ProjectMapper;
 import com.projetofinal.ged.ports.AuthCurrentUserPort;
 import com.projetofinal.ged.ports.ProjectServicePort;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

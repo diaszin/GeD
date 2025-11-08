@@ -1,7 +1,7 @@
 package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.User;
-import com.projetofinal.ged.application.dtos.UserCreateDTO;
+import com.projetofinal.ged.application.dtos.in.UserCreateDTO;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
 import com.projetofinal.ged.infra.exceptions.UserNotFound;
 import com.projetofinal.ged.infra.exceptions.UserPasswordNotMatch;

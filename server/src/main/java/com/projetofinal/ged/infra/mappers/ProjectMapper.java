@@ -1,6 +1,6 @@
 package com.projetofinal.ged.infra.mappers;
 
-import com.projetofinal.ged.application.dtos.ProjectCreateDTO;
+import com.projetofinal.ged.application.dtos.in.ProjectCreateDTO;
 import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.infra.entities.JPAProjectEntity;
 import org.mapstruct.Mapper;
@@ -23,4 +23,6 @@ public interface ProjectMapper {
     JPAProjectEntity domainToEntity(Project project);
 
     List<Project> entitiesToDomain(List<JPAProjectEntity> entities);
+
+
 }

@@ -1,4 +1,4 @@
-package com.projetofinal.ged.application.dtos;
+package com.projetofinal.ged.application.dtos.in;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
