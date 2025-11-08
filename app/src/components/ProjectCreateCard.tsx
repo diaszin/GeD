@@ -15,6 +15,7 @@ import {
 import { Label } from "./ui/label";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { ProjectAPI } from "@/api/ProjectAPI";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface ProjectCreateCardProps {
   title?: string;
@@ -25,6 +26,17 @@ function create(data: ProjectCreateType) {
 }
 
 export default function ProjectCreateCard(props: ProjectCreateCardProps) {
+  const client = useQueryClient();
+  const mutation = useMutation({
+    mutationKey: ["projetos"],
+    mutationFn: (data: ProjectCreateType) => create(data),
+    onSuccess: () => {
+      client.refetchQueries({
+       queryKey: ["projetos"] 
+      });
+    },
+  });
+
   const currentForm = useProjectCreateForm();
   return (
     <Dialog>
@@ -39,7 +51,9 @@ export default function ProjectCreateCard(props: ProjectCreateCardProps) {
           <DialogTitle>Criar novo projeto</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={currentForm.handleSubmit(create)}>
+        <form
+          onSubmit={currentForm.handleSubmit((data) => mutation.mutate(data))}
+        >
           <Controller
             control={currentForm.control}
             name="title"

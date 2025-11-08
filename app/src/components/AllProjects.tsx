@@ -6,7 +6,7 @@ interface AllProjectsProps {
 }
 
 export default function AllProjects(props: AllProjectsProps) {
-  return props.data.map((project) => (
-    <ProjectCard title={project.title} />
+  return props.data.map((project, ind) => (
+    <ProjectCard key={ind} title={project.title} />
   ));
 }
