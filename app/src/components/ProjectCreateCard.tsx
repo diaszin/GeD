@@ -21,7 +21,6 @@ interface ProjectCreateCardProps {
 }
 
 function create(data: ProjectCreateType) {
-  console.log(data.title);
   return ProjectAPI.create(data.title);
 }
 
