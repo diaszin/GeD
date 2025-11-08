@@ -4,6 +4,7 @@ import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.domain.User;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProjectServicePort {
     void create(Project project);
@@ -11,4 +12,6 @@ public interface ProjectServicePort {
     List<Project> getAll();
 
     List<Project> getAllByUser(User user);
+
+    void delete(UUID id, Long ownerId);
 }

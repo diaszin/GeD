@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/project")
@@ -33,5 +34,11 @@ public class ProjectController {
         project.owner = authCurrentUserPort.getCurrentUser();
 
         this.projectServicePort.create(project);
+    }
+
+    @DeleteMapping
+    public void delete(@RequestParam UUID id){
+        User currentUser = authCurrentUserPort.getCurrentUser();
+        this.projectServicePort.delete(id, currentUser.getId());
     }
 }

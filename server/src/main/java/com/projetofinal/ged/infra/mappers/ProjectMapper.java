@@ -25,6 +25,8 @@ public interface ProjectMapper {
 
     List<Project> entitiesToDomain(List<JPAProjectEntity> entities);
 
+    Project entityToDomain(JPAProjectEntity entity);
+
     @Mapping(source = "owner", target = "user")
     List<ProjectReadDTO> domainToReadDTO(List<Project> domain);
 }

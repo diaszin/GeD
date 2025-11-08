@@ -3,11 +3,12 @@ package com.projetofinal.ged.adapters;
 import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.infra.entities.JPAProjectEntity;
 import com.projetofinal.ged.infra.mappers.ProjectMapper;
-import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.ProjectRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 
 public class JPAProjectRepositoryAdapter implements ProjectRepositoryPort {
@@ -34,5 +35,15 @@ public class JPAProjectRepositoryAdapter implements ProjectRepositoryPort {
 
 
         return this.mapper.entitiesToDomain(allProjects);
+    }
+
+    @Override
+    public void delete(JPAProjectEntity project) {
+        this.repository.delete(project);
+    }
+
+    @Override
+    public Project findById(UUID id) {
+        return mapper.entityToDomain(this.repository.findById(id).orElse(null));
     }
 }
