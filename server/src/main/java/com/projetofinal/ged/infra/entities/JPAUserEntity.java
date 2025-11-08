@@ -1,7 +1,6 @@
 package com.projetofinal.ged.infra.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +18,7 @@ public class JPAUserEntity {
     @Column(name = "nome_completo", nullable = false)
     private String fullName;
 
+    @Column(unique = true)
     private String email;
 
     @Column(name = "senha", nullable = false)
