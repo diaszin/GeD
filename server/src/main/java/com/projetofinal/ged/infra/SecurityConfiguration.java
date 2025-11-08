@@ -1,5 +1,6 @@
 package com.projetofinal.ged.infra;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,9 +12,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
+
+    @Autowired
+    CorsSecurityConfiguration corsSecurityConfiguration;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JWTConfigurationFilter jwtConfigurationFilter) throws Exception {
         http
+                .cors(cors -> corsSecurityConfiguration.corsConfigurationSource())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                     authorize -> authorize
