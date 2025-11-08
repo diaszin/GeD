@@ -14,7 +14,7 @@ import {
 } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { Project } from "@/api/Project";
+import { ProjectAPI } from "@/api/ProjectAPI";
 
 interface ProjectCreateCardProps {
   title?: string;
@@ -22,7 +22,7 @@ interface ProjectCreateCardProps {
 
 function create(data: ProjectCreateType) {
   console.log(data.title);
-  return Project.create(data.title);
+  return ProjectAPI.create(data.title);
 }
 
 export default function ProjectCreateCard(props: ProjectCreateCardProps) {
@@ -30,7 +30,7 @@ export default function ProjectCreateCard(props: ProjectCreateCardProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="cursor-pointer w-2xs h-36 bg-primary shadow-2xs pl-2 py-2 rounded-md  transition-shadow flex justify-center items-center flex-col hover:shadow">
+        <div className="cursor-pointer w-full h-36 bg-primary shadow-2xs pl-2 py-2 rounded-md  transition-shadow flex justify-center items-center flex-col hover:shadow">
           <Plus color="white" size={50} />
           {props.title && <span>{props.title}</span>}
         </div>

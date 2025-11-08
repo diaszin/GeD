@@ -8,7 +8,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard(props: ProjectCardProps) {
   return (
-    <div className="w-2xs h-36 bg-secondary shadow-2xs pl-2 py-2 rounded-md  transition-shadow flex justify-between flex-col hover:shadow">
+    <div className="w-full h-36 bg-secondary shadow-2xs pl-2 py-2 rounded-md  transition-shadow flex justify-between flex-col hover:shadow">
       
       <span className="text-2xl font-medium text-gray-400">{props.title || "Projeto sem nome"}</span>
       
