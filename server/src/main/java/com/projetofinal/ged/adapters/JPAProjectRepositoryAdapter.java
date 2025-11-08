@@ -24,7 +24,15 @@ public class JPAProjectRepositoryAdapter implements ProjectRepositoryPort {
     }
 
     @Override
-    public List<Project> getAll(){
+    public List<Project> getAll() {
         return mapper.entitiesToDomain(this.repository.findAll());
+    }
+
+    @Override
+    public List<Project> getAllByUser(Long id) {
+        List<JPAProjectEntity> allProjects = this.repository.findAllByUser(id);
+
+
+        return this.mapper.entitiesToDomain(allProjects);
     }
 }

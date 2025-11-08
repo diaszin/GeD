@@ -8,4 +8,5 @@ import java.util.List;
 public interface ProjectRepositoryPort {
     public void create(JPAProjectEntity entity);
     List<Project> getAll();
+    List<Project> getAllByUser(Long id);
 }

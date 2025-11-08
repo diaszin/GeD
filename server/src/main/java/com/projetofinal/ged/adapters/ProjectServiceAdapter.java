@@ -1,6 +1,7 @@
 package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.Project;
+import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.infra.entities.JPAProjectEntity;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
 import com.projetofinal.ged.infra.mappers.ProjectMapper;
@@ -34,4 +35,10 @@ public class ProjectServiceAdapter implements ProjectServicePort {
     public List<Project> getAll() {
         return this.projectRepository.getAll();
     }
+
+    @Override
+    public List<Project> getAllByUser(User user){
+        return this.projectRepository.getAllByUser(user.getId());
+    }
+
 }

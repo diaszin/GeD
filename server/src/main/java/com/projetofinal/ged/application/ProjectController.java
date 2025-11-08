@@ -22,7 +22,8 @@ public class ProjectController {
 
     @GetMapping
     public List<Project> getAllProject(){
-        return this.projectServicePort.getAll();
+        User user = authCurrentUserPort.getCurrentUser();
+        return this.projectServicePort.getAllByUser(user);
     }
 
     @PostMapping
