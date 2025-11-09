@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface SpringProjectRepository extends JpaRepository<JPAProjectEntity, UUID> {
     @Query("select p from JPAProjectEntity p where p.owner.id = ?1")
     List<JPAProjectEntity> findAllByUser(Long id);
+
+    List<JPAProjectEntity> findAllByOrderByCreatedAtDesc();
 }

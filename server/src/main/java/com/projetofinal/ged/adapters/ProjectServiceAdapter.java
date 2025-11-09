@@ -76,6 +76,7 @@ public class ProjectServiceAdapter implements ProjectServicePort {
         owner.id = project.owner.getId();
         entity.owner = owner;
         entity.id = project.id;
+        entity.createdAt = project.createdAt;
 
         this.projectRepository.update(entity);
     }
