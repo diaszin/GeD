@@ -21,4 +21,10 @@ public class ProjectGlobalExceptionHandler {
     public DefaultExceptionResponse userNotAllowedToDeleteProject(UserNotAllowedToDeleteProject exception){
         return new DefaultExceptionResponse(exception.getMessage());
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public DefaultExceptionResponse internalServerError(Exception error) {
+        return new DefaultExceptionResponse("Houve um erro desconhecido !");
+    }
 }

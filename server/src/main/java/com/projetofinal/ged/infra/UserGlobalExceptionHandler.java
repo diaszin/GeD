@@ -27,4 +27,10 @@ public class UserGlobalExceptionHandler {
     public DefaultExceptionResponse userEmailExists(UserEmailExists error){
         return new DefaultExceptionResponse(error.getMessage());
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public DefaultExceptionResponse internalServerError(Exception error) {
+        return new DefaultExceptionResponse("Houve um erro desconhecido !");
+    }
 }

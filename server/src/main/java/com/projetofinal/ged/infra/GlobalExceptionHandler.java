@@ -22,11 +22,5 @@ public class GlobalExceptionHandler {
         errors.put("message", messages);
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public DefaultExceptionResponse internalServerError(Exception error) {
-        return new DefaultExceptionResponse("Houve um erro desconhecido !");
-    }
 }
 
