@@ -3,6 +3,7 @@ package com.projetofinal.ged.adapters;
 import com.projetofinal.ged.domain.User;
 import com.projetofinal.ged.application.dtos.in.UserCreateDTO;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
+import com.projetofinal.ged.infra.exceptions.UserEmailExists;
 import com.projetofinal.ged.infra.exceptions.UserNotFound;
 import com.projetofinal.ged.infra.exceptions.UserPasswordNotMatch;
 import com.projetofinal.ged.infra.mappers.UserMapper;
@@ -11,6 +12,7 @@ import com.projetofinal.ged.ports.PasswordCriptographyPort;
 import com.projetofinal.ged.ports.UserRepositoryPort;
 import com.projetofinal.ged.ports.UserServicePort;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +31,7 @@ public class UserServiceAdapter implements UserServicePort {
 
     @Override
     public List<User> getAll() {
-        try{
+        try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy");
 
             String dateInString = "22-01-2015";
@@ -39,23 +41,26 @@ public class UserServiceAdapter implements UserServicePort {
             List<JPAUserEntity> allUsers = this.userRepository.getAll();
 
             return userMapper.toDomainUser(allUsers);
-        }
-        catch (ParseException exception){
-            throw  new RuntimeException("Data de aniversário inválido");
+        } catch (ParseException exception) {
+            throw new RuntimeException("Data de aniversário inválido");
         }
     }
 
     @Override
     public void create(UserCreateDTO userCreateDTO) {
 
-        User user =  userMapper.createDTOToDomainUser(userCreateDTO);
+        User user = userMapper.createDTOToDomainUser(userCreateDTO);
 
         String hashedPassword = this.passwordCripto.hash(user.getPassword());
         user.setPassword(hashedPassword);
 
         JPAUserEntity jpaUserEntity = userMapper.toJPAEntity(user);
 
-        this.userRepository.create(jpaUserEntity);
+        try {
+            this.userRepository.create(jpaUserEntity);
+        } catch (DataIntegrityViolationException e) {
+            throw new UserEmailExists();
+        }
     }
 
     @Override
@@ -64,13 +69,13 @@ public class UserServiceAdapter implements UserServicePort {
 
         Optional<JPAUserEntity> foundUser = Optional.ofNullable(this.userRepository.getByEmail(user.getEmail()));
 
-        if (foundUser.isEmpty()){
+        if (foundUser.isEmpty()) {
             throw new UserNotFound();
         }
 
         boolean isPasswordMatch = this.passwordCripto.compare(user.getPassword(), foundUser.get().getPassword());
 
-        if(!isPasswordMatch){
+        if (!isPasswordMatch) {
             throw new UserPasswordNotMatch();
         }
 
@@ -78,10 +83,10 @@ public class UserServiceAdapter implements UserServicePort {
     }
 
     @Override
-    public User getByEmail(String email){
+    public User getByEmail(String email) {
         Optional<JPAUserEntity> jpaUserEntity = Optional.ofNullable(this.userRepository.getByEmail(email));
 
-        if(jpaUserEntity.isEmpty()){
+        if (jpaUserEntity.isEmpty()) {
             throw new UserNotFound();
         }
 
