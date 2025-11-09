@@ -5,13 +5,60 @@ import { Label } from "@radix-ui/react-label";
 import { Controller } from "react-hook-form";
 import { useSignUpForm, type SignUpFormType } from "@/forms/signup";
 import { Auth } from "@/api/Auth";
+import { useMutation } from "@tanstack/react-query";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircleIcon } from "lucide-react";
+import type { AxiosError } from "axios";
+
+interface CardErrorProps {
+  isError: boolean;
+  error: AxiosError<{
+    message: string | string[];
+  }> | null;
+}
 
 function signUp(data: SignUpFormType) {
   return Auth.signUp(data.name, data.email, data.password, data.birthdayDate);
 }
 
+function CardError(props: CardErrorProps) {
+  if (!props.isError || !props.error) {
+    return null;
+  }
+
+  const messages = props.error.response?.data.message;
+
+  return (
+    <Alert variant="destructive">
+      <AlertCircleIcon />
+      <AlertTitle>Os campos não foram inseridores corretamente</AlertTitle>
+      <AlertDescription>
+        <p>Verifique e tente novamente</p>
+        <ul className="list-inside list-disc text-sm">
+          {Array.isArray(messages) ? (
+            messages.map((message) => <li>{message}</li>)
+          ) : (
+            <li>{messages}</li>
+          )}
+        </ul>
+      </AlertDescription>
+    </Alert>
+  );
+}
+
 export default function SignupPage() {
   const form = useSignUpForm();
+  const mutation = useMutation<
+    unknown,
+    AxiosError<{
+      message: string | string[];
+    }>,
+    SignUpFormType,
+    unknown
+  >({
+    mutationKey: ["login"],
+    mutationFn: (data: SignUpFormType) => signUp(data),
+  });
 
   return (
     <div className="w-screen h-screen flex items-center justify-center min-h-screen">
@@ -24,7 +71,12 @@ export default function SignupPage() {
 
         <Card className="mt-4 sm:mx-auto sm:w-full sm:max-w-md bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-100">
           <CardContent>
-            <form onSubmit={form.handleSubmit(signUp)} className="space-y-4">
+            <CardError error={mutation.error} isError={mutation.isError} />
+
+            <form
+              onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
+              className="space-y-4"
+            >
               <Controller
                 control={form.control}
                 name="name"
