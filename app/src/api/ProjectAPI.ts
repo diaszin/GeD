@@ -39,6 +39,21 @@ export class ProjectAPI {
       },
     });
 
-    return response
+    return response;
+  }
+
+  public static async updateTitle(id: string, title: string) {
+    const response = await axios.put(
+      this.url,
+      { title },
+      {
+        params: { id },
+        headers: {
+          Authorization: this.token,
+        },
+      }
+    );
+
+    return response;
   }
 }

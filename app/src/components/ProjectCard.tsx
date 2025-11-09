@@ -3,14 +3,102 @@ import { Button } from "./ui/button";
 import DeleteButtonWithAlert from "./DeleteButtonWithAlert";
 import { ProjectAPI } from "@/api/ProjectAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  Dialog,
+  DialogHeader,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose,
+} from "./ui/dialog";
+import { useProjectUpdateForm } from "@/forms/project";
+import { Controller } from "react-hook-form";
+import { Input } from "./ui/input";
 
 interface ProjectCardProps {
   title: string;
   id: string;
 }
 
+interface ProjectEditButtonProps {
+  id: string;
+  title?: string;
+}
+
 function deleteProject(id: string) {
   return ProjectAPI.deleteById(id);
+}
+
+function updateProject(id: string, title: string) {
+  return ProjectAPI.updateTitle(id, title);
+}
+
+function ProjectEditButton(props: ProjectEditButtonProps) {
+  const queryClient = useQueryClient();
+  const form = useProjectUpdateForm({
+    title: props.title || "",
+  });
+
+  const mutation = useMutation({
+    mutationKey: ["update-project", "projeto"],
+    mutationFn: ({ id, title }: { id: string; title: string }) =>
+      updateProject(id, title),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ["projetos"],
+      });
+    },
+  });
+
+  return (
+    <Dialog>
+      <DialogTrigger>
+        <Button asChild variant="outline">
+          <Edit className="w-14 text-primary" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={form.handleSubmit((data) =>
+            mutation.mutate({ id: props.id, title: data.title })
+          )}
+        >
+          <DialogHeader>
+            <DialogTitle>Atualizar titulo do projeto</DialogTitle>
+          </DialogHeader>
+
+          <Controller
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <div>
+                <div className="flex flex-col w-full justify-between gap-4">
+                  <Input
+                    {...field}
+                    type="text"
+                    name="title"
+                    id="title"
+                    defaultValue={props.title}
+                    autoComplete="on"
+                  />
+                </div>
+              </div>
+            )}
+          />
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button className="bg-destructive">Cancelar</Button>
+            </DialogClose>
+            <Button disabled={props.title == form.watch("title")} type="submit">
+              Atualizar
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
 }
 
 export default function ProjectCard(props: ProjectCardProps) {
@@ -20,8 +108,8 @@ export default function ProjectCard(props: ProjectCardProps) {
     mutationFn: (id: string) => deleteProject(id),
     onSuccess: () => {
       queryClient.refetchQueries({
-        queryKey: ["projetos"]
-      })
+        queryKey: ["projetos"],
+      });
     },
   });
 
@@ -40,9 +128,7 @@ export default function ProjectCard(props: ProjectCardProps) {
             deleteFetch.mutate(props.id);
           }}
         />
-        <Button asChild variant="outline">
-          <Edit className="w-14 text-primary" />
-        </Button>
+        <ProjectEditButton id={props.id} title={props.title} />
       </div>
     </div>
   );
