@@ -48,17 +48,36 @@ public class ProjectServiceAdapter implements ProjectServicePort {
     public void delete(UUID id, Long userId) {
         Project project = this.projectRepository.findById(id);
 
-        if(project == null){
+        if (project == null) {
             throw new ProjectNotFound();
         }
 
-        if(!project.owner.getId().equals(userId)){
+        if (!project.owner.getId().equals(userId)) {
             throw new UserNotAllowedToDeleteProject();
         }
 
         JPAProjectEntity entity = mapper.domainToEntity(project);
         entity.id = project.id;
         this.projectRepository.delete(entity);
+    }
+
+    @Override
+    public void update(UUID id, Project newProject) {
+        Project project = this.projectRepository.findById(id);
+
+        if (project == null) {
+            throw new ProjectNotFound();
+        }
+
+        // Realiza adição do ID e Relacionamento por conta da remoção feita pelo Mapper
+        JPAProjectEntity entity = this.mapper.domainToEntity(newProject);
+        JPAUserEntity owner = userMapper.toJPAEntity(project.owner);
+
+        owner.id = project.owner.getId();
+        entity.owner = owner;
+        entity.id = project.id;
+
+        this.projectRepository.update(entity);
     }
 
 

@@ -13,4 +13,5 @@ public interface ProjectRepositoryPort {
     List<Project> getAllByUser(Long id);
     void delete(JPAProjectEntity project);
     Project findById(UUID id);
+    void update(JPAProjectEntity entity);
 }

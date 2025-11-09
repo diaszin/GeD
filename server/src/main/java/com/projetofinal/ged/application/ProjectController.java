@@ -1,6 +1,7 @@
 package com.projetofinal.ged.application;
 
 import com.projetofinal.ged.application.dtos.in.ProjectCreateDTO;
+import com.projetofinal.ged.application.dtos.in.ProjectUpdateDTO;
 import com.projetofinal.ged.application.dtos.out.ProjectReadDTO;
 import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.domain.User;
@@ -40,5 +41,11 @@ public class ProjectController {
     public void delete(@RequestParam UUID id){
         User currentUser = authCurrentUserPort.getCurrentUser();
         this.projectServicePort.delete(id, currentUser.getId());
+    }
+
+    @PutMapping
+    public void update(@RequestBody ProjectUpdateDTO updateDTO, @RequestParam UUID id){
+        Project updateProject = this.mapper.updateDTOToDomain(updateDTO);
+        this.projectServicePort.update(id, updateProject);
     }
 }

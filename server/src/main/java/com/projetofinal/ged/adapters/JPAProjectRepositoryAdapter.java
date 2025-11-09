@@ -46,4 +46,9 @@ public class JPAProjectRepositoryAdapter implements ProjectRepositoryPort {
     public Project findById(UUID id) {
         return mapper.entityToDomain(this.repository.findById(id).orElse(null));
     }
+
+    @Override
+    public void update(JPAProjectEntity entity) {
+        this.repository.save(entity);
+    }
 }

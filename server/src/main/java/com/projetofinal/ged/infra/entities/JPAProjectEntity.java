@@ -1,6 +1,7 @@
 package com.projetofinal.ged.infra.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "projetos")
+@DynamicUpdate
 public class JPAProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

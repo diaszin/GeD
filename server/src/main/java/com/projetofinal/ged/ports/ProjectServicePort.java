@@ -14,4 +14,5 @@ public interface ProjectServicePort {
     List<Project> getAllByUser(User user);
 
     void delete(UUID id, Long ownerId);
+    void update(UUID id, Project newProject);
 }
