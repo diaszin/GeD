@@ -30,4 +30,15 @@ export class ProjectAPI {
 
     return response;
   }
+
+  public static async deleteById(id: string) {
+    const response = await axios.delete(this.url, {
+      params: { id },
+      headers: {
+        Authorization: this.token,
+      },
+    });
+
+    return response
+  }
 }
