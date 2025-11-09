@@ -40,6 +40,8 @@ function ProjectEditButton(props: ProjectEditButtonProps) {
     title: props.title || "",
   });
 
+  const projectID = props.id;
+
   const mutation = useMutation({
     mutationKey: ["update-project", "projeto"],
     mutationFn: ({ id, title }: { id: string; title: string }) =>
@@ -62,7 +64,7 @@ function ProjectEditButton(props: ProjectEditButtonProps) {
         <form
           className="flex flex-col gap-4"
           onSubmit={form.handleSubmit((data) =>
-            mutation.mutate({ id: props.id, title: data.title })
+            mutation.mutate({ id: projectID, title: data.title })
           )}
         >
           <DialogHeader>
