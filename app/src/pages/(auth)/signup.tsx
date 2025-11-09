@@ -28,7 +28,7 @@ export default function SignupPage() {
               <Controller
                 control={form.control}
                 name="name"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <>
                     <Label
                       htmlFor="name"
@@ -52,7 +52,7 @@ export default function SignupPage() {
               <Controller
                 control={form.control}
                 name="email"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <>
                     <Label
                       htmlFor="email"
@@ -76,7 +76,7 @@ export default function SignupPage() {
               <Controller
                 control={form.control}
                 name="password"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <>
                     <Label
                       htmlFor="password"
@@ -99,7 +99,7 @@ export default function SignupPage() {
               <Controller
                 control={form.control}
                 name="confirmedPassword"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <>
                     <Label
                       htmlFor="confirm-password"
@@ -122,7 +122,7 @@ export default function SignupPage() {
               <Controller
                 control={form.control}
                 name="birthdayDate"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <>
                     <Label
                       htmlFor="birthday"

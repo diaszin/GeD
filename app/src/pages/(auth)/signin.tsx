@@ -16,14 +16,12 @@ export default function LoginPage() {
 
 
   
-  function signIn(data: SignInFormType) {
-    return Auth.signIn(data.email, data.password).then((response) => {
-      const token = response.data["token"];
-
-      // Cria token de usuário e redireciona para a página principal
-      AuthToken.create(token);
-      navigate("/projects")
-    });
+  async function signIn(data: SignInFormType) {
+    const response = await Auth.signIn(data.email, data.password);
+    const token = response.data["token"];
+    // Cria token de usuário e redireciona para a página principal
+    AuthToken.create(token);
+    navigate("/projects");
   }
 
 
