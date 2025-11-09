@@ -6,6 +6,7 @@ import com.projetofinal.ged.application.dtos.in.UserCreateDTO;
 import com.projetofinal.ged.application.dtos.in.UserLoginDTO;
 import com.projetofinal.ged.infra.mappers.UserMapper;
 import com.projetofinal.ged.ports.UserServicePort;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void signUp(@RequestBody() UserCreateDTO dto){
+    public void signUp(@RequestBody() @Valid UserCreateDTO dto){
         this.userService.create(dto);
     }
 
