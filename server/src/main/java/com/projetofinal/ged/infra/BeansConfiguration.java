@@ -42,4 +42,14 @@ public class BeansConfiguration {
     ProjectServicePort projectServicePort(ProjectRepositoryPort projectRepositoryPort){
         return new ProjectServiceAdapter(projectRepositoryPort);
     }
+
+    @Bean
+    FolderRepositoryPort folderRepositoryPort(){
+        return new JPAFolderRepositoryAdapter();
+    }
+
+    @Bean
+    FolderServicePort folderServicePort(FolderRepositoryPort folderRepositoryPort, ProjectServicePort projectServicePort){
+        return new FolderServiceAdapter(folderRepositoryPort, projectServicePort);
+    }
 }

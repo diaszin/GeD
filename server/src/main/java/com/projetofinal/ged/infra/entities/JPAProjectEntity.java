@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,4 +28,8 @@ public class JPAProjectEntity {
     @CreationTimestamp
     @Column(name = "data_de_criacao")
     public Date createdAt;
+
+    @Transient
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<JPAFolderEntity> folders;
 }

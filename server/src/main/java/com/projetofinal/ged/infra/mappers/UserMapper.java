@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper()
 public interface UserMapper {
 
     UserMapper instance = Mappers.getMapper(UserMapper.class);

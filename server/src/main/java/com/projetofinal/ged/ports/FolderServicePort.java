@@ -1,0 +1,12 @@
+package com.projetofinal.ged.ports;
+
+import com.projetofinal.ged.domain.Folder;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface FolderServicePort {
+    void create(Folder folder, UUID projectId);
+
+    List<Folder> getAll();
+}

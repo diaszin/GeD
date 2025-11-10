@@ -81,5 +81,8 @@ public class ProjectServiceAdapter implements ProjectServicePort {
         this.projectRepository.update(entity);
     }
 
-
+    @Override
+    public Project getById(UUID id) {
+        return this.projectRepository.getById(id);
+    }
 }
