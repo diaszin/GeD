@@ -9,4 +9,8 @@ public interface FolderServicePort {
     void create(Folder folder, UUID projectId);
 
     List<Folder> getAll();
+
+    void delete(UUID id);
+
+    Folder getById(UUID id);
 }

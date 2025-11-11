@@ -47,4 +47,10 @@ public class FolderController {
         List<Folder> folderList = this.folderService.getAll();
         return this.mapper.domainToFolderReadDTO(folderList);
     }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@RequestParam("id") @Valid @NotNull UUID id){
+        this.folderService.delete(id);
+    }
 }

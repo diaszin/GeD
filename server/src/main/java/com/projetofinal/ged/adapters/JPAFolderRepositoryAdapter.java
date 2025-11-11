@@ -7,6 +7,7 @@ import com.projetofinal.ged.ports.FolderRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 public class JPAFolderRepositoryAdapter implements FolderRepositoryPort {
     @Autowired
@@ -23,5 +24,18 @@ public class JPAFolderRepositoryAdapter implements FolderRepositoryPort {
     public List<Folder> getAll() {
         List<JPAFolderEntity> entity = this.repository.findAll();
         return folderMapper.entityToDomain(entity);
+    }
+
+    @Override
+    public void delete(Folder folder) {
+        JPAFolderEntity entity = this.folderMapper.domainToEntity(folder);
+        this.repository.delete(entity);
+    }
+
+    @Override
+    public Folder getById(UUID id) {
+        JPAFolderEntity entity = this.repository.findById(id).orElse(null);
+
+        return this.folderMapper.entityToDomain(entity);
     }
 }

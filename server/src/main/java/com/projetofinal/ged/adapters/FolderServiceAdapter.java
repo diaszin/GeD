@@ -5,6 +5,7 @@ import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.infra.entities.JPAFolderEntity;
 import com.projetofinal.ged.infra.entities.JPAProjectEntity;
 import com.projetofinal.ged.infra.entities.JPAUserEntity;
+import com.projetofinal.ged.infra.exceptions.FolderNotFound;
 import com.projetofinal.ged.infra.exceptions.ProjectNotFound;
 import com.projetofinal.ged.infra.mappers.FolderMapper;
 import com.projetofinal.ged.infra.mappers.ProjectMapper;
@@ -56,5 +57,24 @@ public class FolderServiceAdapter implements FolderServicePort {
     @Override
     public List<Folder> getAll() {
         return this.folderRepository.getAll();
+    }
+
+
+
+    @Override
+    public void delete(UUID id) {
+        Folder folder = this.getById(id);
+
+        this.folderRepository.delete(folder);
+    }
+
+    @Override
+    public Folder getById(UUID id) {
+        Folder folder = this.folderRepository.getById(id);
+        if(folder ==  null){
+            throw new FolderNotFound();
+        }
+
+        return folder;
     }
 }
