@@ -30,6 +30,6 @@ public class JPAProjectEntity {
     public Date createdAt;
 
     @Transient
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     public List<JPAFolderEntity> folders;
 }

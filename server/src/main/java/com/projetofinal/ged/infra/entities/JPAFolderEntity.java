@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
@@ -37,9 +39,11 @@ public class JPAFolderEntity {
 
     @Transient
     @OneToMany(mappedBy = "folder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     public List<JPAFileEntity> files;
 
     @ManyToOne
     @JoinColumn(name = "projeto_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     public JPAProjectEntity project;
 }
