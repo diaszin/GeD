@@ -1,5 +1,6 @@
 package com.projetofinal.ged.infra;
 
+import com.projetofinal.ged.application.UserController;
 import com.projetofinal.ged.infra.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice(assignableTypes = UserController.class)
 public class UserGlobalExceptionHandler {
     @ExceptionHandler(UserNotFound.class)
     public ResponseEntity<DefaultExceptionResponse> userNotFound(UserNotFound error){

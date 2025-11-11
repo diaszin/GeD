@@ -1,5 +1,6 @@
 package com.projetofinal.ged.infra;
 
+import com.projetofinal.ged.application.ProjectController;
 import com.projetofinal.ged.infra.exceptions.DefaultExceptionResponse;
 import com.projetofinal.ged.infra.exceptions.ProjectNotFound;
 import com.projetofinal.ged.infra.exceptions.UserNotAllowedToDeleteProject;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice(assignableTypes = ProjectController.class)
 public class ProjectGlobalExceptionHandler {
     @ExceptionHandler(ProjectNotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -25,6 +26,6 @@ public class ProjectGlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public DefaultExceptionResponse internalServerError(Exception error) {
-        return new DefaultExceptionResponse("Houve um erro desconhecido !");
+        return new DefaultExceptionResponse("Houve um erro desconhecido!");
     }
 }
