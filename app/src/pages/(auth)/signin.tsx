@@ -1,29 +1,38 @@
 import { Auth } from "@/api/Auth";
+import { FormsSubmitError } from "@/components/FormsSubmitError";
 import { Button } from "@/components/ui/button";
-import  { Card, CardContent } from "@/components/ui/card";
-import  { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { AuthToken } from "@/config/AuthToken";
 import { useSignInForm, type SignInFormType } from "@/forms/signin";
-import { useNavigate } from "@/router";
-import  { Label } from "@radix-ui/react-label";
+import { useNavigate} from "@/router";
+import { Label } from "@radix-ui/react-label";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError, AxiosResponse } from "axios";
 import { Controller } from "react-hook-form";
-
 
 export default function LoginPage() {
   const form = useSignInForm();
-  const navigate = useNavigate();
-
-
-  
-  async function signIn(data: SignInFormType) {
-    const response = await Auth.signIn(data.email, data.password);
-    const token = response.data["token"];
-    // Cria token de usuário e redireciona para a página principal
-    AuthToken.create(token);
-    navigate("/projects");
-  }
-
+  const navigate = useNavigate()
+  const mutation = useMutation<
+    AxiosResponse,
+    AxiosError<{
+      message: string | string[];
+    }>,
+    SignInFormType,
+    unknown
+  >({
+    mutationKey: ["signin"],
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      Auth.signIn(email, password),
+    onSuccess: (response) => {
+      const token = response.data["token"];
+      // Cria token de usuário e redireciona para a página principal
+      AuthToken.create(token);
+      navigate("/projects")
+    },
+  });
 
   return (
     <div className="w-screen h-screen flex items-center justify-center min-h-screen">
@@ -36,7 +45,17 @@ export default function LoginPage() {
 
         <Card className="mt-4 sm:mx-auto sm:w-full sm:max-w-md bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-100">
           <CardContent>
-            <form onSubmit={form.handleSubmit(signIn)} className="space-y-4">
+            <FormsSubmitError
+              isError={mutation.isError}
+              error={mutation.error}
+            />
+
+            <form
+              onSubmit={form.handleSubmit((data) =>
+                mutation.mutate({ email: data.email, password: data.password })
+              )}
+              className="space-y-4"
+            >
               <Controller
                 control={form.control}
                 name="email"
@@ -88,7 +107,7 @@ export default function LoginPage() {
                 type="submit"
                 className="mt-4 w-full py-2 font-medium"
               >
-                {form.formState.isSubmitting ? <Spinner/> : "Entrar"}
+                {form.formState.isSubmitting ? <Spinner /> : "Entrar"}
               </Button>
             </form>
           </CardContent>
