@@ -3,6 +3,7 @@ package com.projetofinal.ged.application;
 
 
 import com.projetofinal.ged.application.dtos.in.FolderCreateDTO;
+import com.projetofinal.ged.application.dtos.in.FolderPartialUpdateDTO;
 import com.projetofinal.ged.application.dtos.out.FolderReadDTO;
 import com.projetofinal.ged.domain.Folder;
 import com.projetofinal.ged.domain.User;
@@ -52,5 +53,13 @@ public class FolderController {
     @ResponseStatus(HttpStatus.OK)
     public void delete(@RequestParam("id") @Valid @NotNull UUID id){
         this.folderService.delete(id);
+    }
+
+    @PatchMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void partialUpdate(@RequestParam("id") @Valid @NotNull UUID id, @RequestBody @Valid FolderPartialUpdateDTO dto){
+        Folder folder = this.mapper.partialUpdateDTOToFolder(dto);
+
+        this.folderService.update(id, folder);
     }
 }

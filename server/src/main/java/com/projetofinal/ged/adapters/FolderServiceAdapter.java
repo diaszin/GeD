@@ -70,11 +70,24 @@ public class FolderServiceAdapter implements FolderServicePort {
 
     @Override
     public Folder getById(UUID id) {
-        Folder folder = this.folderRepository.getById(id);
-        if(folder ==  null){
+        JPAFolderEntity entity = this.folderRepository.getById(id);
+        if(entity ==  null){
             throw new FolderNotFound();
         }
 
-        return folder;
+        return  this.mapper.entityToDomain(entity);
+    }
+
+    @Override
+    public void update(UUID id, Folder partialFolder) {
+        JPAFolderEntity folder = this.folderRepository.getById(id);
+
+        if(folder == null){
+            throw new FolderNotFound();
+        }
+
+        this.mapper.updateFolder(partialFolder, folder);
+
+        this.folderRepository.update(folder);
     }
 }

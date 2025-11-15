@@ -33,9 +33,12 @@ public class JPAFolderRepositoryAdapter implements FolderRepositoryPort {
     }
 
     @Override
-    public Folder getById(UUID id) {
-        JPAFolderEntity entity = this.repository.findById(id).orElse(null);
+    public JPAFolderEntity getById(UUID id) {
+        return this.repository.findById(id).orElse(null);
+    }
 
-        return this.folderMapper.entityToDomain(entity);
+    @Override
+    public void update(JPAFolderEntity entity) {
+        this.repository.saveAndFlush(entity);
     }
 }

@@ -13,5 +13,7 @@ public interface FolderRepositoryPort {
 
     void delete(Folder folder);
 
-    Folder getById(UUID id);
+    JPAFolderEntity getById(UUID id);
+
+    void update(JPAFolderEntity entity);
 }
