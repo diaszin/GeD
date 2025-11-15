@@ -31,7 +31,7 @@ public class FolderServiceAdapter implements FolderServicePort {
     public void create(Folder folder, UUID projectId) {
         Project project = this.projectService.getById(projectId);
 
-        if(project ==  null) {
+        if (project == null) {
             throw new ProjectNotFound();
         }
 
@@ -44,7 +44,6 @@ public class FolderServiceAdapter implements FolderServicePort {
         userEntity.id = folder.getCreatedBy().getId();
 
         JPAFolderEntity entity = mapper.domainToEntity(folder);
-
 
 
         entity.project = projectEntity;
@@ -60,7 +59,6 @@ public class FolderServiceAdapter implements FolderServicePort {
     }
 
 
-
     @Override
     public void delete(UUID id) {
         Folder folder = this.getById(id);
@@ -71,23 +69,30 @@ public class FolderServiceAdapter implements FolderServicePort {
     @Override
     public Folder getById(UUID id) {
         JPAFolderEntity entity = this.folderRepository.getById(id);
-        if(entity ==  null){
+        if (entity == null) {
             throw new FolderNotFound();
         }
 
-        return  this.mapper.entityToDomain(entity);
+        return this.mapper.entityToDomain(entity);
     }
 
     @Override
     public void update(UUID id, Folder partialFolder) {
         JPAFolderEntity folder = this.folderRepository.getById(id);
 
-        if(folder == null){
+        if (folder == null) {
             throw new FolderNotFound();
         }
 
         this.mapper.updateFolder(partialFolder, folder);
 
         this.folderRepository.update(folder);
+    }
+
+    @Override
+    public List<Folder> getByProject(UUID id) {
+        List<JPAFolderEntity> folderEntityList = this.folderRepository.getByProject(id);
+
+        return this.mapper.entityToDomain(folderEntityList);
     }
 }

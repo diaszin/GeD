@@ -41,4 +41,9 @@ public class JPAFolderRepositoryAdapter implements FolderRepositoryPort {
     public void update(JPAFolderEntity entity) {
         this.repository.saveAndFlush(entity);
     }
+
+    @Override
+    public List<JPAFolderEntity> getByProject(UUID id) {
+        return this.repository.findAllByProjectId(id);
+    }
 }

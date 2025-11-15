@@ -2,6 +2,7 @@ package com.projetofinal.ged.infra.mappers;
 
 import com.projetofinal.ged.application.dtos.in.FolderCreateDTO;
 import com.projetofinal.ged.application.dtos.in.FolderPartialUpdateDTO;
+import com.projetofinal.ged.application.dtos.out.AllFoldersInProjectDTO;
 import com.projetofinal.ged.application.dtos.out.FolderReadDTO;
 import com.projetofinal.ged.domain.Folder;
 import com.projetofinal.ged.infra.entities.JPAFolderEntity;
@@ -25,6 +26,8 @@ public interface FolderMapper {
     List<Folder> entityToDomain(List<JPAFolderEntity> entityList);
 
     List<FolderReadDTO> domainToFolderReadDTO(List<Folder> domain);
+
+    List<AllFoldersInProjectDTO> domainToAllFoldersInProjectDTO(List<Folder> domain);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Folder partialUpdateDTOToFolder(FolderPartialUpdateDTO dto);

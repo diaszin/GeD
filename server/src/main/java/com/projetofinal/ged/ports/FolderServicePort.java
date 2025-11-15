@@ -17,4 +17,6 @@ public interface FolderServicePort {
     Folder getById(UUID id);
 
     void update(UUID id, Folder folder);
+
+    List<Folder> getByProject(UUID id);
 }

@@ -16,4 +16,6 @@ public interface FolderRepositoryPort {
     JPAFolderEntity getById(UUID id);
 
     void update(JPAFolderEntity entity);
+
+    List<JPAFolderEntity> getByProject(UUID id);
 }
