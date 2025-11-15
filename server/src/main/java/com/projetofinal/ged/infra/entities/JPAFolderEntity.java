@@ -1,12 +1,11 @@
 package com.projetofinal.ged.infra.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.UUID;
 @Table(name = "pasta")
 @Getter
 @Setter
+@DynamicUpdate
 public class JPAFolderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
