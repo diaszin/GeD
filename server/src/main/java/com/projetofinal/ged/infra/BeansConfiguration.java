@@ -52,4 +52,9 @@ public class BeansConfiguration {
     FolderServicePort folderServicePort(FolderRepositoryPort folderRepositoryPort, ProjectServicePort projectServicePort){
         return new FolderServiceAdapter(folderRepositoryPort, projectServicePort);
     }
+
+    @Bean
+    FileUploadPort fileUploadsServicePort(){
+        return new LocalFileUploadAdapter();
+    }
 }
