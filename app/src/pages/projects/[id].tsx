@@ -18,8 +18,8 @@ function FolderGrid(props: FolderGridProps) {
   if (props.data && props.data.length > 0) {
     return (
       <div className="grid grid-cols-3 gap-3">
-        {props.data.map((folder) => (
-          <FolderCard title={folder.title} id={folder.id} />
+        {props.data.map((folder, ind) => (
+          <FolderCard key={ind} title={folder.title} id={folder.id} />
         ))}
       </div>
     );
