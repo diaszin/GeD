@@ -107,7 +107,7 @@ export default function LoginPage() {
                 type="submit"
                 className="mt-4 w-full py-2 font-medium"
               >
-                {form.formState.isSubmitting ? <Spinner /> : "Entrar"}
+                {form.formState.isSubmitting || mutation.isPending ? <Spinner /> : "Entrar"}
               </Button>
             </form>
           </CardContent>
