@@ -9,5 +9,6 @@ import java.util.UUID;
 
 public interface SpringFolderRepository extends JpaRepository<JPAFolderEntity, UUID> {
 
-    List<JPAFolderEntity> findAllByProjectId(UUID id);
+    List<JPAFolderEntity> findAllByProjectIdOrderByTitleAsc(UUID id);
+    List<JPAFolderEntity> findAllByOrderByTitleAsc();
 }

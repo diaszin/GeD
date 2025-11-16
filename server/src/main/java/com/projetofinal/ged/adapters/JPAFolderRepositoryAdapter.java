@@ -22,7 +22,7 @@ public class JPAFolderRepositoryAdapter implements FolderRepositoryPort {
 
     @Override
     public List<Folder> getAll() {
-        List<JPAFolderEntity> entity = this.repository.findAll();
+        List<JPAFolderEntity> entity = this.repository.findAllByOrderByTitleAsc();
         return folderMapper.entityToDomain(entity);
     }
 
@@ -44,6 +44,6 @@ public class JPAFolderRepositoryAdapter implements FolderRepositoryPort {
 
     @Override
     public List<JPAFolderEntity> getByProject(UUID id) {
-        return this.repository.findAllByProjectId(id);
+        return this.repository.findAllByProjectIdOrderByTitleAsc(id);
     }
 }
