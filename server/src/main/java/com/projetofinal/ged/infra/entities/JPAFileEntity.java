@@ -1,6 +1,7 @@
 package com.projetofinal.ged.infra.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.UUID;
 
@@ -22,9 +23,10 @@ public class JPAFileEntity {
     @JoinColumn(name = "usuario_id")
     public JPAUserEntity user;
 
-    @Column(name = "caminho_do_arquivo")
-    String filePath;
+    @Column(name = "nome_do_arquivo")
+    String generatedFilename;
 
     @Column(name = "versao")
+    @ColumnDefault("1")
     int version;
 }
