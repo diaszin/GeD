@@ -16,6 +16,7 @@ import { Edit } from "lucide-react";
 import { Controller } from "react-hook-form";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { useState } from "react";
 
 interface FolderCardProps {
   title: string;
@@ -35,12 +36,14 @@ function update(id: string, data: FolderUpdateFormType) {
 }
 
 function FolderEditButton(props: FolderEditButtonProps) {
+  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>();
   const queryClient = useQueryClient();
   const form = useFolderUpdateForm();
   const { mutate } = useMutation({
     mutationKey: ["pastas", "update-pastas"],
     mutationFn: (data: FolderUpdateFormType) => update(props.id, data),
     onSuccess: () => {
+      setDialogIsOpen(false);
       queryClient.refetchQueries({
         queryKey: ["pastas"],
       });
@@ -48,7 +51,7 @@ function FolderEditButton(props: FolderEditButtonProps) {
   });
 
   return (
-    <Dialog>
+    <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger>
         <Button asChild>
           <Edit className="w-14 text-primary" />
@@ -90,7 +93,7 @@ function FolderEditButton(props: FolderEditButtonProps) {
           />
         </form>
         <DialogFooter>
-          <Button onClick={form.handleSubmit((data) => mutate(data))}>
+          <Button type="submit" onClick={form.handleSubmit((data) => mutate(data))}>
             Alterar
           </Button>
         </DialogFooter>
