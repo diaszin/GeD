@@ -2,18 +2,15 @@ package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.UploadedFile;
 import com.projetofinal.ged.infra.exceptions.FileNotCreated;
+import com.projetofinal.ged.infra.exceptions.FileNotRemoved;
 import com.projetofinal.ged.infra.exceptions.NotSupportedExtensionFile;
 import com.projetofinal.ged.ports.FileUploadPort;
 
-import java.io.BufferedWriter;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.FileAttribute;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +48,19 @@ public class LocalFileUploadAdapter implements FileUploadPort {
         }
         catch (NotSupportedExtensionFile e){
             throw new NotSupportedExtensionFile();
+        }
+    }
+
+    @Override
+    public void remove(String filename) {
+        Path fullPath = Paths.get(localFolderPath + "/" + filename);
+
+        IO.println(fullPath);
+        try{
+            Files.delete(fullPath);
+        }
+        catch (IOException e){
+            throw new FileNotRemoved();
         }
     }
 

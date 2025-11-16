@@ -9,6 +9,7 @@ import com.projetofinal.ged.ports.FileServicePort;
 import com.projetofinal.ged.ports.FolderServicePort;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -35,5 +36,21 @@ public class FileServiceAdapter implements FileServicePort {
         }
 
         this.fileRepository.delete(file);
+    }
+
+    @Override
+    public List<File> getAllFilesByFolder(UUID folderID) {
+        return this.fileRepository.getAllByFolder(folderID);
+    }
+
+    @Override
+    public File getById(UUID id) {
+        File file = this.fileRepository.getById(id);
+
+        if(file == null){
+            throw new FileNotFound();
+        }
+
+        return file;
     }
 }

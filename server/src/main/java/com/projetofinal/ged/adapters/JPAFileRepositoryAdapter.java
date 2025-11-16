@@ -35,4 +35,11 @@ public class JPAFileRepositoryAdapter implements FileRepositoryPort {
         JPAFileEntity entity = this.mapper.domainToEntity(file);
         this.repository.delete(entity);
     }
+
+    @Override
+    public List<File> getAllByFolder(UUID folderID) {
+        List<JPAFileEntity> entities = this.repository.findAllByFolderId(folderID);
+
+        return this.mapper.entityToDomain(entities);
+    }
 }

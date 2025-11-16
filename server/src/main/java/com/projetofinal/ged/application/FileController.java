@@ -1,5 +1,6 @@
 package com.projetofinal.ged.application;
 
+import com.projetofinal.ged.application.dtos.in.FilesInFolderReadDTO;
 import com.projetofinal.ged.application.dtos.in.UploadFileDTO;
 import com.projetofinal.ged.domain.File;
 import com.projetofinal.ged.domain.UploadedFile;
@@ -15,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,12 +30,12 @@ public class FileController {
     private final AuthCurrentUserPort authCurrentUserPort;
 
     @PostMapping
-    public void upload(@ModelAttribute UploadFileDTO fileDTO){
-        if(fileDTO.getFile().isEmpty()){
+    public void upload(@ModelAttribute UploadFileDTO fileDTO) {
+        if (fileDTO.getFile().isEmpty()) {
             throw new FileIsEmpty();
         }
 
-        try{
+        try {
             byte[] fileByte = fileDTO.getFile().getBytes();
             String filename = fileDTO.getFile().getOriginalFilename();
 
@@ -49,17 +51,29 @@ public class FileController {
 
 
             this.fileService.register(file, fileDTO.getFolder());
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new FileNotCreated();
-        }
-        catch (NotSupportedExtensionFile e){
+        } catch (NotSupportedExtensionFile e) {
             throw new NotSupportedExtensionFile();
         }
     }
 
     @DeleteMapping
-    public void delete(@RequestParam("id") UUID id){
+    public void delete(@RequestParam("id") UUID id) {
+        File file = this.fileService.getById(id);
         this.fileService.delete(id);
+
+        IO.println(file.getFilePath());
+
+        this.uploadService.remove(file.getFilePath());
+    }
+
+    @GetMapping
+    public List<FilesInFolderReadDTO> getAllByFolder(@RequestParam("folder") UUID folder) {
+        List<File> files = this.fileService.getAllFilesByFolder(folder);
+
+
+
+        return this.mapper.entityToFileinFolderReadDTO(files);
     }
 }
