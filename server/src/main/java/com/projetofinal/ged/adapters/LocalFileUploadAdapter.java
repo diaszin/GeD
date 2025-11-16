@@ -24,9 +24,9 @@ public class LocalFileUploadAdapter implements FileUploadPort {
     @Override
     public UploadedFile upload(String filename, byte[] fileBytes) {
         try {
-            Path uploadfolder = Paths.get(localFolderPath);
-            if(Files.notExists(uploadfolder)){
-                Files.createDirectory(uploadfolder);
+            Path uploadFolder = Paths.get(localFolderPath);
+            if (Files.notExists(uploadFolder)) {
+                Files.createDirectory(uploadFolder);
             }
 
             String fileExtension = this.validate(filename);
@@ -44,15 +44,18 @@ public class LocalFileUploadAdapter implements FileUploadPort {
             writer.close();
 
 
-            return new UploadedFile(fullPath.toUri().toString(), randomFilename);
+            return new UploadedFile(fullPath.getFileName().toString(), randomFilename);
 
         } catch (IOException e) {
             throw new FileNotCreated();
         }
+        catch (NotSupportedExtensionFile e){
+            throw new NotSupportedExtensionFile();
+        }
     }
 
 
-    public String validate(String filename) {
+    private String validate(String filename) {
         List<String> ALLOWED_EXTENSIONS = List.of(new String[]{"pdf", "png", "jpeg", "docx", "xlsx", "md"});
 
         if (!filename.contains(".")) {

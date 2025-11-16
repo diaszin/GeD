@@ -24,9 +24,6 @@ public class JPAFileEntity {
     public JPAUserEntity user;
 
     @Column(name = "nome_do_arquivo")
-    String generatedFilename;
+    public String generatedFilename;
 
-    @Column(name = "versao")
-    @ColumnDefault("1")
-    int version;
 }

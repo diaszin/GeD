@@ -57,4 +57,15 @@ public class BeansConfiguration {
     FileUploadPort fileUploadsServicePort(){
         return new LocalFileUploadAdapter();
     }
+
+
+    @Bean
+    FileRepositoryPort fileRepositoryPort(){
+        return new JPAFileRepositoryAdapter();
+    }
+
+    @Bean
+    FileServicePort fileServicePort(FileRepositoryPort repositoryPort, FolderServicePort folderServicePort){
+        return new FileServiceAdapter(repositoryPort, folderServicePort);
+    }
 }
