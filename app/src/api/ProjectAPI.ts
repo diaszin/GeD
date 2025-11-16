@@ -1,4 +1,5 @@
 import { AuthToken } from "@/config/AuthToken";
+import type { Folder } from "@/types/Folder";
 import type { Project } from "@/types/Project";
 import axios from "axios";
 
@@ -57,6 +58,21 @@ export class ProjectAPI {
         headers: {
           Authorization: token,
         },
+      }
+    );
+
+    return response;
+  }
+
+  public static async allFolders(id: string) {
+    const token = "Bearer " + AuthToken.get();
+    const url = `${this.url}/folder`;
+    const response = await axios.get<Folder[]>(
+      url,
+
+      {
+        params: { id },
+        headers: { Authorization: token },
       }
     );
 

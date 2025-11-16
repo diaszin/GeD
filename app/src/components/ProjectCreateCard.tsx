@@ -32,7 +32,7 @@ export default function ProjectCreateCard(props: ProjectCreateCardProps) {
     mutationFn: (data: ProjectCreateType) => create(data),
     onSuccess: () => {
       client.refetchQueries({
-       queryKey: ["projetos"] 
+        queryKey: ["projetos"],
       });
     },
   });
