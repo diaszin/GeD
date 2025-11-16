@@ -7,6 +7,7 @@ import com.projetofinal.ged.ports.FileRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 public class JPAFileRepositoryAdapter implements FileRepositoryPort {
     @Autowired
@@ -20,5 +21,18 @@ public class JPAFileRepositoryAdapter implements FileRepositoryPort {
         JPAFileEntity recentSavedFile = this.repository.save(entity);
 
         IO.println(recentSavedFile.title);
+    }
+
+    @Override
+    public File getById(UUID id) {
+        JPAFileEntity entity = this.repository.findById(id).orElse(null);
+
+        return this.mapper.entityToDomain(entity);
+    }
+
+    @Override
+    public void delete(File file) {
+        JPAFileEntity entity = this.mapper.domainToEntity(file);
+        this.repository.delete(entity);
     }
 }

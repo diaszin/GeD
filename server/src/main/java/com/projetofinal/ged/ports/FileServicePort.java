@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface FileServicePort {
     void register(File file, UUID folderID);
+
+    void delete(UUID id);
 }

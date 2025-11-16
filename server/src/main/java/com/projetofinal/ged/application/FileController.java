@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("file")
@@ -55,5 +56,10 @@ public class FileController {
         catch (NotSupportedExtensionFile e){
             throw new NotSupportedExtensionFile();
         }
+    }
+
+    @DeleteMapping
+    public void delete(@RequestParam("id") UUID id){
+        this.fileService.delete(id);
     }
 }
