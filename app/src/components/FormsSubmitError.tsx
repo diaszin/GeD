@@ -19,6 +19,8 @@ export function FormsSubmitError(props: FormsSubmitErrorProps) {
 
   const messages = props.error.response?.data.message;
 
+  console.log(props.error.response)
+
   return (
     <Alert variant="destructive">
       <AlertCircleIcon />

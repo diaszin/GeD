@@ -8,6 +8,6 @@ axios.interceptors.response.use(
     if (error.status == 403) {
       window.dispatchEvent(new Event("axios-403"));
     } 
-    throw Promise.reject(error);
+    throw error;
   }
 );

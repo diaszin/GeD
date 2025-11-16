@@ -1,6 +1,8 @@
 import { AuthToken } from "@/config/AuthToken";
 import type { Folder } from "@/types/Folder";
 import axios from "axios";
+import { FileAPI } from "./FileAPI";
+import type { File } from "@/types/File";
 
 export class FolderAPI {
   private static readonly baseURl = import.meta.env.VITE_BACKEND_URL;
@@ -43,6 +45,22 @@ export class FolderAPI {
 
     const response = await axios.patch(this.url, data, {
       params: { id },
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response;
+  }
+
+  static async getFiles(id: string) {
+    const token = "Bearer " + AuthToken.get();
+
+    const url = FileAPI.url;
+    const response = await axios.get<File>(url, {
+      params: {
+        folder: id,
+      },
       headers: {
         Authorization: token,
       },
