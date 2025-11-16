@@ -17,6 +17,7 @@ import { Controller } from "react-hook-form";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { useState } from "react";
+import { Link } from "@/router";
 
 interface FolderCardProps {
   title: string;
@@ -93,7 +94,10 @@ function FolderEditButton(props: FolderEditButtonProps) {
           />
         </form>
         <DialogFooter>
-          <Button type="submit" onClick={form.handleSubmit((data) => mutate(data))}>
+          <Button
+            type="submit"
+            onClick={form.handleSubmit((data) => mutate(data))}
+          >
             Alterar
           </Button>
         </DialogFooter>
@@ -117,7 +121,14 @@ export default function FolderCard(props: FolderCardProps) {
   return (
     <div className="w-82 h-40 bg-gray-200 p-3 rounded-sm flex flex-col justify-between items-start">
       <div className="w-full flex items-center justify-between">
-        <span className="text-xl">{props.title}</span>
+        <Link
+          to="/folder/:id"
+          params={{
+            id: props.id,
+          }}
+        >
+          <span className="text-xl">{props.title}</span>
+        </Link>
       </div>
 
       <div className="flex gap-2">
