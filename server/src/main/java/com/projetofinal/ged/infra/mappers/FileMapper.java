@@ -1,12 +1,11 @@
 package com.projetofinal.ged.infra.mappers;
 
+import com.projetofinal.ged.application.dtos.in.FilePartialUpdateDTO;
 import com.projetofinal.ged.application.dtos.in.FilesInFolderReadDTO;
 import com.projetofinal.ged.domain.File;
 import com.projetofinal.ged.domain.UploadedFile;
 import com.projetofinal.ged.infra.entities.JPAFileEntity;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -31,4 +30,9 @@ public interface FileMapper {
 
 
     List<FilesInFolderReadDTO> entityToFileinFolderReadDTO(List<File> files);
+
+    File partialUpdateDTOToDomain(FilePartialUpdateDTO dto);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void modifiedFileToFile(File modifiedFile, @MappingTarget File file);
 }

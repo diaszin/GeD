@@ -13,4 +13,6 @@ public interface FileRepositoryPort {
     void delete(File file);
 
     List<File> getAllByFolder(UUID folderID);
+
+    void update(File file);
 }

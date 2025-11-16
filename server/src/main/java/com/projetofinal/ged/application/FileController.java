@@ -1,5 +1,6 @@
 package com.projetofinal.ged.application;
 
+import com.projetofinal.ged.application.dtos.in.FilePartialUpdateDTO;
 import com.projetofinal.ged.application.dtos.in.FilesInFolderReadDTO;
 import com.projetofinal.ged.application.dtos.in.UploadFileDTO;
 import com.projetofinal.ged.domain.File;
@@ -75,5 +76,12 @@ public class FileController {
 
 
         return this.mapper.entityToFileinFolderReadDTO(files);
+    }
+
+    @PatchMapping
+    public void partialUpdate(@RequestParam("id") UUID id, @RequestBody FilePartialUpdateDTO dto){
+        File file = this.mapper.partialUpdateDTOToDomain(dto);
+        this.fileService.update(id, file);
+
     }
 }

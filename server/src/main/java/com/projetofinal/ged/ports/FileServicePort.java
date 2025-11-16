@@ -13,4 +13,6 @@ public interface FileServicePort {
     List<File> getAllFilesByFolder(UUID folderID);
 
     File getById(UUID id);
+
+    void update(UUID id, File file);
 }
