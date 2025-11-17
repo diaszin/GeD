@@ -12,7 +12,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Edit } from "lucide-react";
+import { Edit, FolderIcon } from "lucide-react";
 import { Controller } from "react-hook-form";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -119,25 +119,45 @@ export default function FolderCard(props: FolderCardProps) {
   });
 
   return (
-    <div className="w-82 h-40 bg-gray-200 p-3 rounded-sm flex flex-col justify-between items-start">
-      <div className="w-full flex items-center justify-between">
-        <Link
-          to="/folder/:id"
-          params={{
-            id: props.id,
-          }}
+    <div
+      className="
+    group w-72 h-40 rounded-xl bg-card border border-border
+    p-4 flex flex-col justify-between
+    transition-all duration-300
+    hover:shadow-md hover:border-primary/30
+  "
+    >
+      <Link
+        to="/folder/:id"
+        params={{ id: props.id }}
+        className="flex items-center gap-3"
+      >
+        <div
+          className="
+        w-12 h-12 rounded-lg bg-primary/10
+        flex items-center justify-center
+        transition-colors duration-300
+        group-hover:bg-primary/20
+      "
         >
-          <span className="text-xl">{props.title}</span>
-        </Link>
-      </div>
+          <FolderIcon className="text-primary opacity-80" size={26} />
+        </div>
 
-      <div className="flex gap-2">
+        <span
+          className="
+        text-lg font-semibold text-foreground truncate
+        group-hover:text-primary transition-colors
+      "
+        >
+          {props.title || "Pasta sem nome"}
+        </span>
+      </Link>
+
+      <div className="flex gap-2 justify-end">
         <DeleteButtonWithAlert
-          message={"Os arquivos serão excluidos permanentemente"}
-          alertTitle={"Deseja realmente excluir esses arquivos?"}
-          confirmAction={() => {
-            exclude();
-          }}
+          message="Os arquivos serão excluídos permanentemente."
+          alertTitle="Deseja realmente excluir essa pasta?"
+          confirmAction={() => exclude()}
         />
 
         <FolderEditButton id={props.id} />

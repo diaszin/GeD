@@ -17,9 +17,18 @@ function getFolders(projectID: string) {
 function FolderGrid(props: FolderGridProps) {
   if (props.data && props.data.length > 0) {
     return (
-      <div className="grid grid-cols-3 gap-3">
-        {props.data.map((folder, ind) => (
-          <FolderCard key={ind} title={folder.title} id={folder.id} />
+      <div
+        className="
+    grid gap-4 
+    grid-cols-1
+    sm:grid-cols-2 
+    lg:grid-cols-3 
+    xl:grid-cols-4
+    w-full
+  "
+      >
+        {props.data.map((folder) => (
+          <FolderCard key={folder.id} title={folder.title} id={folder.id} />
         ))}
       </div>
     );
@@ -39,7 +48,9 @@ export default function ProjectViewPage() {
   return (
     <div className="w-full">
       <FolderView projectID={id}>
-        <FolderGrid data={folderFetch.data} />
+        {folderFetch.data && folderFetch.data.length > 0 ? (
+          <FolderGrid data={folderFetch.data} />
+        ) : null}
       </FolderView>
     </div>
   );

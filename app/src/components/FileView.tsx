@@ -16,12 +16,13 @@ interface FileViewProps {
 }
 
 export default function FileView(props: FileViewProps) {
+  console.log(props.children);
   return (
     <Dialog>
       <ContextMenu>
-        <ContextMenuTrigger className="w-full flex items-center justify-center">
+        <ContextMenuTrigger className="w-full h-full flex items-center justify-center">
           {props.children || (
-            <legend>
+            <legend className="text-lg text-gray-600">
               Clique com o botão direito para importar um novo arquivo
             </legend>
           )}

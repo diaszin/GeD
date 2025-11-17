@@ -19,9 +19,11 @@ export default function FolderView(props: FolderViewProps) {
     <div>
       <Dialog>
         <ContextMenu>
-          <ContextMenuTrigger className="w-screen h-full flex items-center justify-center">
-            {props.children || (
-              <legend className="text-sm text-gray-600">
+          <ContextMenuTrigger className="w-full h-screen flex items-center justify-center">
+            {props.children != null ? (
+              props.children
+            ) : (
+              <legend className="text-lg text-gray-600">
                 Clique com o botão direito do mouse para criar uma pasta
               </legend>
             )}
