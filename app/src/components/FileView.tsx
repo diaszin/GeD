@@ -19,7 +19,7 @@ export default function FileView(props: FileViewProps) {
   return (
     <Dialog>
       <ContextMenu>
-        <ContextMenuTrigger className="w-screen flex items-center justify-center">
+        <ContextMenuTrigger className="w-full flex items-center justify-center">
           {props.children || (
             <legend>
               Clique com o botão direito para importar um novo arquivo

@@ -23,7 +23,7 @@ export default function AllPages() {
         }}
         isExpired={!showModal}
       />
-      ;
+
       <Outlet />
     </>
   );
