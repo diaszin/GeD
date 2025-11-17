@@ -21,8 +21,16 @@ export default function ProjectHomePage() {
   }
 
   return (
-    <div className="w-screen h-screen">
-      <div className=" grid grid-cols-3 gap-3">
+    <div className="w-full h-full">
+      <div
+        className="
+    grid gap-4 
+    grid-cols-1 
+    sm:grid-cols-2 
+    lg:grid-cols-3 
+    xl:grid-cols-4
+  "
+      >
         <ProjectCreateCard />
 
         <AllProjects data={projectsFetch.data} />

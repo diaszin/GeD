@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -16,7 +15,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
-import { FolderOpen } from "lucide-react";
+import { FolderOpen, HomeIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { ProjectAPI } from "@/api/ProjectAPI";
 
@@ -47,7 +46,7 @@ function MyProjects() {
               {projectsFetch.data &&
                 projectsFetch.data.map((projects) => (
                   <SidebarMenuButton className="h-max">
-                    <a href={`/projects/${projects.id}`}>{projects.title}</a>
+                    <a className="text-[#747bff] font-medium decoration-inherit" href={`/projects/${projects.id}`}>{projects.title}</a>
                   </SidebarMenuButton>
                 ))}
             </SidebarMenuSubItem>
@@ -66,6 +65,14 @@ export default function MySidebar() {
           <SidebarGroupLabel>Geral</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <a href="/">
+                    <HomeIcon/>
+                    Home
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
               <MyProjects />
             </SidebarMenu>
           </SidebarGroupContent>

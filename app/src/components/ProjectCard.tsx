@@ -1,4 +1,4 @@
-import { Edit, FolderIcon } from "lucide-react";
+import { Edit, FolderIcon, OrigamiIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import DeleteButtonWithAlert from "./DeleteButtonWithAlert";
 import { ProjectAPI } from "@/api/ProjectAPI";
@@ -117,24 +117,43 @@ export default function ProjectCard(props: ProjectCardProps) {
   });
 
   return (
-    <div className="w-full h-36 bg-secondary shadow-2xs pl-2 py-2 rounded-md  transition-shadow flex justify-between flex-col hover:shadow">
+    <div
+      className="
+    group w-full h-40 rounded-xl bg-card border border-border
+    p-4 flex flex-col justify-between
+    transition-all duration-300
+    hover:shadow-md hover:border-primary/30
+  "
+    >
       <Link to="/projects/:id" params={{ id: props.id }}>
-        <div>
-          <div className="flex items-center gap-3 text-2xl font-medium text-gray-400">
-            <FolderIcon color="blue" opacity={0.08} size={50} />
-            {props.title || "Projeto sem nome"}
+        <div className="flex items-center gap-4">
+          <div
+            className="
+          min-w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center
+          transition-colors duration-300 group-hover:bg-primary/20
+        "
+          >
+            <OrigamiIcon size={32} className="text-primary opacity-80" />
           </div>
+
+          <span
+            className="
+          text-xl font-semibold text-foreground
+          group-hover:text-primary transition-colors
+        "
+          >
+            {props.title || "Projeto sem nome"}
+          </span>
         </div>
       </Link>
 
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end gap-2">
         <DeleteButtonWithAlert
-          message="Ao excluir um projeto, ele será removido permanentemente !"
+          message="Ao excluir um projeto, ele será removido permanentemente!"
           alertTitle="Tem certeza disso?"
-          confirmAction={() => {
-            deleteFetch.mutate(props.id);
-          }}
+          confirmAction={() => deleteFetch.mutate(props.id)}
         />
+
         <ProjectEditButton id={props.id} title={props.title} />
       </div>
     </div>

@@ -16,6 +16,7 @@ import { Label } from "./ui/label";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { ProjectAPI } from "@/api/ProjectAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Spinner } from "./ui/spinner";
 
 interface ProjectCreateCardProps {
   title?: string;
@@ -41,9 +42,32 @@ export default function ProjectCreateCard(props: ProjectCreateCardProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="cursor-pointer w-full h-36 bg-primary shadow-2xs pl-2 py-2 rounded-md  transition-shadow flex justify-center items-center flex-col hover:shadow">
-          <Plus color="white" size={50} />
-          {props.title && <span>{props.title}</span>}
+        <div
+          className="
+    group cursor-pointer w-full h-40 rounded-2xl bg-muted/40 
+    border border-border 
+    flex flex-col items-center justify-center gap-3
+    transition-all duration-300 
+    hover:bg-muted hover:shadow-lg hover:border-primary/40
+    active:scale-[0.98]
+  "
+        >
+          <div
+            className="
+      flex items-center justify-center 
+      w-14 h-14 rounded-xl bg-primary/20 
+      transition-colors duration-300 
+      group-hover:bg-primary/30
+    "
+          >
+            <Plus className="text-primary" size={36} />
+          </div>
+
+          {props.title && (
+            <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
+              {props.title}
+            </span>
+          )}
         </div>
       </DialogTrigger>
       <DialogContent aria-describedby="Criar novo projeto">
@@ -82,8 +106,18 @@ export default function ProjectCreateCard(props: ProjectCreateCardProps) {
           <DialogClose asChild>
             <Button variant="destructive">Cancelar</Button>
           </DialogClose>
-          <Button type="submit" variant="outline">
-            Criar
+          <Button
+            onClick={() =>
+              currentForm.handleSubmit((data) => mutation.mutate(data))
+            }
+            type="submit"
+            variant="outline"
+          >
+            {currentForm.formState.isLoading || mutation.isPending ? (
+              <Spinner />
+            ) : (
+              "Criar"
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>
