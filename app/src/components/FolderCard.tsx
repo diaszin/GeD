@@ -78,7 +78,7 @@ function FolderEditButton(props: FolderEditButtonProps) {
                 <Label
                   htmlFor="title"
                   className="text-sm font-medium text-foreground dark:text-foreground"
-                  title="Nome do projeto"
+                  title="Nome da pasta"
                 >
                   Nome da pasta
                 </Label>

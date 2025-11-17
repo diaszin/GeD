@@ -20,8 +20,10 @@ public class File {
         this.createdBy = createdBy;
         this.filePath = filePath;
 
-        if (filePath.contains(".")) {
+        if (filePath != null &&filePath.contains(".")) {
             this.extension = filePath.split("\\.")[1];
+        }else{
+            this.extension = null;
         }
 
         this.uploadDate = uploadDate;
@@ -72,8 +74,10 @@ public class File {
     }
 
     public void setExtension(String extension) {
-        if (filePath.contains(".")) {
+        if (filePath != null && filePath.contains(".")) {
             this.extension = filePath.split("\\.")[1];
+        } else {
+            this.extension = null;
         }
     }
 

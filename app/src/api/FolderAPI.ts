@@ -40,7 +40,7 @@ export class FolderAPI {
     return response;
   }
 
-  static async update(id: string, data: Pick<Folder, "title">) {
+  static async  update(id: string, data: Pick<Folder, "title">) {
     const token = "Bearer " + AuthToken.get();
 
     const response = await axios.patch(this.url, data, {

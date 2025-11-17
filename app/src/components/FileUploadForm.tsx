@@ -11,7 +11,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { FileAPI } from "@/api/FileAPI";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormsSubmitError } from "./FormsSubmitError";
 import type { AxiosError, AxiosResponse } from "axios";
 
@@ -26,6 +26,7 @@ interface FileUploadFormProps {
 }
 
 export default function FileUploadForm(props: FileUploadFormProps) {
+  const queryClient = useQueryClient();
   const form = useFileUploadForm();
   const mutation = useMutation<
     AxiosResponse,
@@ -46,6 +47,11 @@ export default function FileUploadForm(props: FileUploadFormProps) {
       data: FileUploadFormType;
       folder: string;
     }) => upload(data, folder),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ["arquivos"],
+      });
+    },
   });
 
   return (
