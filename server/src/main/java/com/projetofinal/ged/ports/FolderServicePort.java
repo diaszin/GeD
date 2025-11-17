@@ -19,5 +19,7 @@ public interface FolderServicePort {
 
     List<Folder> getByProject(UUID id);
 
-    List<FolderFileKpis> showFilKpis();
+    List<FolderFileKpis> showFilKpis(UUID id);
+
+    List<FolderFileKpis> showImportsKpisByPeriod(UUID id);
 }

@@ -1,6 +1,5 @@
 package com.projetofinal.ged.ports;
 
-import com.projetofinal.ged.domain.FolderFileKpis;
 import com.projetofinal.ged.domain.Folder;
 import com.projetofinal.ged.infra.entities.JPAFolderEntity;
 
@@ -20,5 +19,7 @@ public interface FolderRepositoryPort {
 
     List<JPAFolderEntity> getByProject(UUID id);
 
-    List<Object[]> showFileKpis();
+    List<Object[]> showFileKpis(UUID id);
+
+    List<Object[]> showKpisForPeriod(UUID id);
 }

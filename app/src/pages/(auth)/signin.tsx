@@ -30,20 +30,20 @@ export default function LoginPage() {
       const token = response.data["token"];
       // Cria token de usuário e redireciona para a página principal
       AuthToken.create(token);
-      navigate("/projects")
+      navigate("/")
     },
   });
 
   return (
     <div className="w-screen h-screen flex items-center justify-center min-h-screen">
-      <div className="flex flex-1 flex-col justify-center px-4 py-10 lg:px-6">
+      <div className="w-full flex flex-1 flex-col justify-center px-4 py-10 lg:px-6">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h3 className="mt-2 text-center text-lg font-bold text-foreground dark:text-foreground">
             Seus arquivos. Seus dados. Tudo em um só lugar.
           </h3>
         </div>
 
-        <Card className="mt-4 sm:mx-auto sm:w-full sm:max-w-md bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-100">
+        <Card className="w-full mt-4 sm:mx-auto sm:w-full sm:max-w-md bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-100">
           <CardContent>
             <FormsSubmitError
               isError={mutation.isError}

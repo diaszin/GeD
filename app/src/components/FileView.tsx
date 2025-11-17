@@ -12,7 +12,7 @@ import { FilePlus } from "lucide-react";
 
 interface FileViewProps {
   folder: string;
-  children?: ReactElement | null;
+  children?: ReactElement | ReactElement[] | null;
 }
 
 export default function FileView(props: FileViewProps) {

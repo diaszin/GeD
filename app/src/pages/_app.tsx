@@ -5,6 +5,8 @@ import { Outlet } from "react-router";
 export default function AllPages() {
   const [showModal, setShowModal] = useState<boolean>(true);
 
+
+
   useEffect(() => {
     window.addEventListener("axios-403", () => {
       setShowModal(false);
@@ -14,9 +16,11 @@ export default function AllPages() {
       window.removeEventListener("axios-403", () => {});
     };
   }, []);
+  
 
   return (
     <>
+      
       <UserLoginExpiredAlert
         onClick={() => {
           setShowModal(true);

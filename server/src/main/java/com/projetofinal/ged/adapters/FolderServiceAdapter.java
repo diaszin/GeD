@@ -98,9 +98,9 @@ public class FolderServiceAdapter implements FolderServicePort {
     }
 
     @Override
-    public List<FolderFileKpis> showFilKpis() {
+    public List<FolderFileKpis> showFilKpis(UUID id) {
 
-        List<Object[]> rawKpis = this.folderRepository.showFileKpis();
+        List<Object[]> rawKpis = this.folderRepository.showFileKpis(id);
 
         return rawKpis.stream().map(kpi -> {
             String type = (String) kpi[0];
@@ -109,4 +109,16 @@ public class FolderServiceAdapter implements FolderServicePort {
             return new FolderFileKpis(type, quantity);
         }).toList();
     }
+
+    @Override
+    public List<FolderFileKpis> showImportsKpisByPeriod(UUID id) {
+        List<Object[]> kpis =this.folderRepository.showKpisForPeriod(id);
+        return kpis.stream().map((kpi) -> {
+            String type = (String) kpi[0];
+            long quantity = (long) kpi[1];
+            return new FolderFileKpis(type, quantity);
+        }).toList();
+    }
+
+
 }

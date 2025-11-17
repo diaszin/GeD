@@ -4,10 +4,13 @@ import FileView from "@/components/FileView";
 import { useParams } from "@/router";
 import { useQuery } from "@tanstack/react-query";
 import type { File as TFile } from "@/types/File";
+import FolderDashbord from "@/components/FolderDashbord";
 
 function getFiles(id: string) {
   return FolderAPI.getFiles(id);
 }
+
+
 
 interface AllFilesProps {
   data: TFile[];
@@ -39,6 +42,7 @@ function AllFiles(props: AllFilesProps) {
 }
 
 export default function FolderViewPage() {
+  
   const { id } = useParams("/folder/:id");
 
   const folderFilesFetch = useQuery({
@@ -47,10 +51,16 @@ export default function FolderViewPage() {
     retry: 1,
   });
 
+  
+
   return (
-    <div>
+    <div className="h-full w-full flex flex-col gap-15">
+      
+      <FolderDashbord id={id} />
       <FileView folder={id}>
-        {folderFilesFetch.data && folderFilesFetch.data.length > 0 ? (
+        {folderFilesFetch.data &&
+        folderFilesFetch.data.length > 0 &&
+        !folderFilesFetch.isPending ? (
           <AllFiles data={folderFilesFetch.data} />
         ) : null}
       </FileView>

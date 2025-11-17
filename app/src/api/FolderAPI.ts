@@ -40,7 +40,7 @@ export class FolderAPI {
     return response;
   }
 
-  static async  update(id: string, data: Pick<Folder, "title">) {
+  static async update(id: string, data: Pick<Folder, "title">) {
     const token = "Bearer " + AuthToken.get();
 
     const response = await axios.patch(this.url, data, {
@@ -61,6 +61,30 @@ export class FolderAPI {
       params: {
         folder: id,
       },
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response;
+  }
+
+  static async getFileKpis(id: string) {
+    const token = "Bearer " + AuthToken.get();
+    const response = await axios.get(this.url + "/kpis", {
+      params: { id },
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response;
+  }
+
+  static async getFileKpisByPeriod(id: string) {
+    const token = "Bearer " + AuthToken.get();
+    const response = await axios.get(this.url + "/kpis/period", {
+      params: { id },
       headers: {
         Authorization: token,
       },

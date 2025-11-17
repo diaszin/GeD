@@ -62,7 +62,12 @@ public class FolderController {
     }
 
     @GetMapping("/kpis")
-    public List<FolderFileKpis> fileKpis(){
-        return this.folderService.showFilKpis();
+    public List<FolderFileKpis> fileKpis(@RequestParam("id") UUID id){
+        return this.folderService.showFilKpis(id);
+    }
+
+    @GetMapping("/kpis/period")
+    public List<FolderFileKpis> fileKpisByPeriod(@RequestParam("id") UUID id){
+        return this.folderService.showImportsKpisByPeriod(id);
     }
 }
