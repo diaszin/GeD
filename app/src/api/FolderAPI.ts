@@ -57,7 +57,7 @@ export class FolderAPI {
     const token = "Bearer " + AuthToken.get();
 
     const url = FileAPI.url;
-    const response = await axios.get<File>(url, {
+    const response = await axios.get<File[]>(url, {
       params: {
         folder: id,
       },

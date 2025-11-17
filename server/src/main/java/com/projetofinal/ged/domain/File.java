@@ -1,5 +1,6 @@
 package com.projetofinal.ged.domain;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class File {
@@ -8,15 +9,22 @@ public class File {
     Folder folder;
     User createdBy;
     String filePath;
-    int version;
+    String extension;
+    Date uploadDate;
 
-    public File(UUID id, String title, Folder folder, User createdBy, String filePath, int version) {
+
+    public File(UUID id, String title, Folder folder, User createdBy, String filePath, Date uploadDate) {
         this.id = id;
         this.title = title;
         this.folder = folder;
         this.createdBy = createdBy;
         this.filePath = filePath;
-        this.version = version;
+
+        if (filePath.contains(".")) {
+            this.extension = filePath.split("\\.")[1];
+        }
+
+        this.uploadDate = uploadDate;
     }
 
     public UUID getId() {
@@ -59,11 +67,21 @@ public class File {
         this.filePath = filePath;
     }
 
-    public int getVersion() {
-        return version;
+    public String getExtension() {
+        return extension;
     }
 
-    public void setVersion(int version) {
-        this.version = version;
+    public void setExtension(String extension) {
+        if (filePath.contains(".")) {
+            this.extension = filePath.split("\\.")[1];
+        }
+    }
+
+    public Date getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
     }
 }

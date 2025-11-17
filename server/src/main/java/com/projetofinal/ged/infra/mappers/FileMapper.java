@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper()
 public interface FileMapper {
     FileMapper instance = Mappers.getMapper(FileMapper.class);
 
@@ -29,6 +29,7 @@ public interface FileMapper {
     File uploadFileDomainToFileDomain(UploadedFile uploadedFile);
 
 
+    @Mapping(source = "createdBy.fullName", target = "createdBy.name")
     List<FilesInFolderReadDTO> entityToFileinFolderReadDTO(List<File> files);
 
     File partialUpdateDTOToDomain(FilePartialUpdateDTO dto);

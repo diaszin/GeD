@@ -47,6 +47,6 @@ public class JPAFileRepositoryAdapter implements FileRepositoryPort {
     public void update(File file) {
         JPAFileEntity entity = this.mapper.domainToEntity(file);
 
-        this.repository.saveAndFlush(entity);
+        this.repository.save(entity);
     }
 }

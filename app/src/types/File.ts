@@ -1,4 +1,9 @@
-export interface File{
-    id: string
-    title: string
+export interface File {
+  id: string;
+  title: string;
+  extension: string;
+  createdBy: {
+    email: string;
+  };
+  uploadDate: string;
 }
