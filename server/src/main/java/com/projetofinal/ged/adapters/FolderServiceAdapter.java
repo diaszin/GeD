@@ -1,6 +1,7 @@
 package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.Folder;
+import com.projetofinal.ged.domain.FolderFileKpis;
 import com.projetofinal.ged.domain.Project;
 import com.projetofinal.ged.infra.entities.JPAFolderEntity;
 import com.projetofinal.ged.infra.entities.JPAProjectEntity;
@@ -94,5 +95,18 @@ public class FolderServiceAdapter implements FolderServicePort {
         List<JPAFolderEntity> folderEntityList = this.folderRepository.getByProject(id);
 
         return this.mapper.entityToDomain(folderEntityList);
+    }
+
+    @Override
+    public List<FolderFileKpis> showFilKpis() {
+
+        List<Object[]> rawKpis = this.folderRepository.showFileKpis();
+
+        return rawKpis.stream().map(kpi -> {
+            String type = (String) kpi[0];
+            long quantity = (Long) kpi[1];
+
+            return new FolderFileKpis(type, quantity);
+        }).toList();
     }
 }

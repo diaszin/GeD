@@ -1,8 +1,7 @@
 package com.projetofinal.ged.ports;
 
+import com.projetofinal.ged.domain.FolderFileKpis;
 import com.projetofinal.ged.domain.Folder;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,4 +18,6 @@ public interface FolderServicePort {
     void update(UUID id, Folder folder);
 
     List<Folder> getByProject(UUID id);
+
+    List<FolderFileKpis> showFilKpis();
 }

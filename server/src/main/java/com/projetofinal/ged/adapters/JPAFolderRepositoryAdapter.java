@@ -1,6 +1,7 @@
 package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.Folder;
+import com.projetofinal.ged.domain.FolderFileKpis;
 import com.projetofinal.ged.infra.entities.JPAFolderEntity;
 import com.projetofinal.ged.infra.mappers.FolderMapper;
 import com.projetofinal.ged.ports.FolderRepositoryPort;
@@ -45,5 +46,10 @@ public class JPAFolderRepositoryAdapter implements FolderRepositoryPort {
     @Override
     public List<JPAFolderEntity> getByProject(UUID id) {
         return this.repository.findAllByProjectIdOrderByTitleAsc(id);
+    }
+
+    @Override
+    public List<Object[]> showFileKpis() {
+        return this.repository.kpis();
     }
 }

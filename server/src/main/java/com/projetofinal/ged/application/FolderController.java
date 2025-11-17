@@ -2,6 +2,7 @@ package com.projetofinal.ged.application;
 
 
 
+import com.projetofinal.ged.domain.FolderFileKpis;
 import com.projetofinal.ged.application.dtos.in.FolderCreateDTO;
 import com.projetofinal.ged.application.dtos.in.FolderPartialUpdateDTO;
 import com.projetofinal.ged.application.dtos.out.FolderReadDTO;
@@ -11,11 +12,8 @@ import com.projetofinal.ged.infra.mappers.FolderMapper;
 import com.projetofinal.ged.ports.AuthCurrentUserPort;
 import com.projetofinal.ged.ports.FolderServicePort;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,5 +59,10 @@ public class FolderController {
         Folder folder = this.mapper.partialUpdateDTOToFolder(dto);
 
         this.folderService.update(id, folder);
+    }
+
+    @GetMapping("/kpis")
+    public List<FolderFileKpis> fileKpis(){
+        return this.folderService.showFilKpis();
     }
 }
