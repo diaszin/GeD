@@ -15,10 +15,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
-import { FolderOpen, HomeIcon } from "lucide-react";
+import { FolderOpen, HomeIcon, LogOut } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { ProjectAPI } from "@/api/ProjectAPI";
-
+import { useNavigate } from "@/router";
+import { AuthToken } from "@/config/AuthToken";
 
 function getProjects() {
   return ProjectAPI.get();
@@ -46,7 +47,12 @@ function MyProjects() {
               {projectsFetch.data &&
                 projectsFetch.data.map((projects) => (
                   <SidebarMenuButton className="h-max">
-                    <a className="text-[#747bff] font-medium decoration-inherit" href={`/projects/${projects.id}`}>{projects.title}</a>
+                    <a
+                      className="text-[#747bff] font-medium decoration-inherit"
+                      href={`/projects/${projects.id}`}
+                    >
+                      {projects.title}
+                    </a>
                   </SidebarMenuButton>
                 ))}
             </SidebarMenuSubItem>
@@ -58,6 +64,7 @@ function MyProjects() {
 }
 
 export default function MySidebar() {
+  const navigate = useNavigate();
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarContent>
@@ -68,9 +75,20 @@ export default function MySidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <a href="/">
-                    <HomeIcon/>
+                    <HomeIcon />
                     Home
                   </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem className="cursor-pointer">
+                <SidebarMenuButton
+                  onClick={() => {
+                    AuthToken.remove();
+                    navigate("/signin");
+                  }}
+                >
+                  <LogOut />
+                  Logout
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <MyProjects />

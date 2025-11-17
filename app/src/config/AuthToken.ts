@@ -1,13 +1,17 @@
-export class AuthToken{
-    private static readonly key = "AUTH_USER_TOKEN"
+export class AuthToken {
+  private static readonly key = "AUTH_USER_TOKEN";
 
-    static create(token: string){
-        localStorage.setItem(this.key, token)
-    }
+  static create(token: string) {
+    localStorage.setItem(this.key, token);
+  }
 
-    static get(){
-        const token = localStorage.getItem(this.key)
+  static get() {
+    const token = localStorage.getItem(this.key);
 
-        return token
-    }
+    return token;
+  }
+
+  static remove() {
+    localStorage.removeItem(this.key);
+  }
 }
