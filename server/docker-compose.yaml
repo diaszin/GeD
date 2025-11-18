@@ -6,4 +6,12 @@ services:
     - "${DB_PORT}:5432"
     env_file:
       - .env
-    
+
+    networks:
+      - ged-network
+
+networks:
+  ged-network:
+    external: true
+    name: ged-network
+
