@@ -3,7 +3,7 @@ LABEL authors="kaiqu"
 
 WORKDIR /app
 COPY build/libs/*.jar app.jar
-COPY .env .env
+
 
 
 EXPOSE 8080
