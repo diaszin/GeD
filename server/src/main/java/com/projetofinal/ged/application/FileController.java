@@ -42,7 +42,7 @@ public class FileController {
 
             UploadedFile uploadedFile = uploadService.upload(filename, fileByte);
 
-            IO.println(uploadedFile.path);
+
 
             File file = mapper.uploadFileDomainToFileDomain(uploadedFile);
 
@@ -64,7 +64,7 @@ public class FileController {
         File file = this.fileService.getById(id);
         this.fileService.delete(id);
 
-        IO.println(file.getFilePath());
+
 
         this.uploadService.remove(file.getFilePath());
     }

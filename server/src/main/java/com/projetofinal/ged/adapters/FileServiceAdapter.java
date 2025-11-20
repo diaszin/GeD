@@ -65,8 +65,7 @@ public class FileServiceAdapter implements FileServicePort {
         }
 
         this.mapper.modifiedFileToFile(modifiedFile, file);
-        IO.println(file.getTitle());
-        IO.println(file.getId());
+
 
         this.fileRepository.update(file);
 

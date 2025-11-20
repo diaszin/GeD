@@ -20,7 +20,7 @@ public class JPAFileRepositoryAdapter implements FileRepositoryPort {
 
         JPAFileEntity recentSavedFile = this.repository.save(entity);
 
-        IO.println(recentSavedFile.title);
+
     }
 
     @Override

@@ -33,7 +33,6 @@ public class FolderController {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid FolderCreateDTO createDTO, @RequestParam("project") @NotNull UUID projectId){
         Folder folder = this.mapper.createDTOToDomain(createDTO);
-        IO.println(folder.getTitle());
         User currentUser = authCurrentUserPort.getCurrentUser();
 
         folder.setCreatedBy(currentUser);

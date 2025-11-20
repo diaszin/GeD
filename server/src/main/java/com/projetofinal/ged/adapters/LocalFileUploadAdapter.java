@@ -55,7 +55,7 @@ public class LocalFileUploadAdapter implements FileUploadPort {
     public void remove(String filename) {
         Path fullPath = Paths.get(localFolderPath + "/" + filename);
 
-        IO.println(fullPath);
+
         try{
             Files.delete(fullPath);
         }
