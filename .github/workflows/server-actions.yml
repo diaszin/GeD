@@ -16,4 +16,4 @@ jobs:
     - uses: actions/checkout@v4
     - name: Constroi servidor
       working-directory: server
-      run: docker build . --file server/Dockerfile --tag ged-server
+      run: docker build . --file Dockerfile --tag ged-server
