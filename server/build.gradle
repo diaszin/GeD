@@ -11,7 +11,7 @@ description = 'Gestão Eletrônica de Documentos (GED) é um sistema que utiliz
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(25)
+		languageVersion = JavaLanguageVersion.of(23)
 	}
 }
 

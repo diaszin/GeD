@@ -1,10 +1,12 @@
-FROM eclipse-temurin:25-jdk
-LABEL authors="kaiqu"
-
+# Etapa de build
+FROM gradle:jdk23 AS build
 WORKDIR /app
-COPY build/libs/*.jar app.jar
+COPY . .
+RUN ./gradlew assemble --stacktrace --info
 
-
-
+# Etapa final (execução com Java 25)
+FROM eclipse-temurin:23-jdk
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
