@@ -1,10 +1,10 @@
 # Etapa de build
 FROM gradle:jdk23 AS build
 WORKDIR /app
-RUN chmod +x gradlew
 
 COPY . .
 
+RUN chmod +x gradlew
 RUN ./gradlew assemble --stacktrace --info
 
 # Etapa final (execução com Java 25)
