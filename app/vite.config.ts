@@ -20,4 +20,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  preview: {
+    allowedHosts: ["gedapp-production-20c4.up.railway.app/**"]
+  }
 });
