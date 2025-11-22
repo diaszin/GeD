@@ -5,9 +5,9 @@ axios.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    if (error.status == 403) {
+    if (error.status && (error.status == 403 || error.status >= 500)) {
       window.dispatchEvent(new Event("axios-403"));
-    } 
+    }
     throw error;
   }
 );
