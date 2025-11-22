@@ -8,6 +8,8 @@ import { Auth } from "@/api/Auth";
 import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { FormsSubmitError } from "@/components/FormsSubmitError";
+import { useNavigate } from "@/router";
+import { toast } from "sonner";
 
 function signUp(data: SignUpFormType) {
   return Auth.signUp(data.name, data.email, data.password, data.birthdayDate);
@@ -15,6 +17,7 @@ function signUp(data: SignUpFormType) {
 
 export default function SignupPage() {
   const form = useSignUpForm();
+  const navigate = useNavigate();
   const mutation = useMutation<
     unknown,
     AxiosError<{
@@ -25,6 +28,13 @@ export default function SignupPage() {
   >({
     mutationKey: ["login"],
     mutationFn: (data: SignUpFormType) => signUp(data),
+    onSuccess: () =>
+      toast.success("Conta criada com sucesso", {
+        duration: 4000,
+        onAutoClose: () => {
+          navigate("/signin");
+        },
+      }),
   });
 
   return (
@@ -151,7 +161,7 @@ export default function SignupPage() {
                       htmlFor="birthday"
                       className="text-sm font-medium text-foreground dark:text-foreground"
                     >
-                      Digite sua senha
+                      Digite a data de nascimento
                     </Label>
                     <Input
                       {...field}
