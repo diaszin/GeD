@@ -21,6 +21,6 @@ export default defineConfig({
     },
   },
   preview: {
-    allowedHosts: ["gedapp-production-20c4.up.railway.app/**"]
+    allowedHosts: ["gedapp-production-20c4.up.railway.app"]
   }
 });
