@@ -1,4 +1,4 @@
-import { Edit, FolderIcon, OrigamiIcon } from "lucide-react";
+import { Edit, OrigamiIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import DeleteButtonWithAlert from "./DeleteButtonWithAlert";
 import { ProjectAPI } from "@/api/ProjectAPI";

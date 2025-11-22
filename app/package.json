@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --force",
+    "prebuild":  "vite build --emptyOutDir=false --ssrManifest=false",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
