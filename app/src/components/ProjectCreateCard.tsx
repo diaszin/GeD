@@ -44,7 +44,7 @@ export default function ProjectCreateCard(props: ProjectCreateCardProps) {
       <DialogTrigger asChild>
         <div
           className="
-    group cursor-pointer w-full h-40 rounded-2xl bg-muted/40 
+    group cursor-pointer min-w-60 h-40 rounded-2xl bg-muted/40 
     border border-border 
     flex flex-col items-center justify-center gap-3
     transition-all duration-300 

@@ -140,6 +140,7 @@ export default function ProjectCard(props: ProjectCardProps) {
             className="
           text-xl font-semibold text-foreground
           group-hover:text-primary transition-colors
+          overflow-hidden text-ellipsis
         "
           >
             {props.title || "Projeto sem nome"}
