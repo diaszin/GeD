@@ -10,6 +10,7 @@ import type { AxiosError } from "axios";
 import { FormsSubmitError } from "@/components/FormsSubmitError";
 import { useNavigate } from "@/router";
 import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 function signUp(data: SignUpFormType) {
   return Auth.signUp(data.name, data.email, data.password, data.birthdayDate);
@@ -30,10 +31,11 @@ export default function SignupPage() {
     mutationFn: (data: SignUpFormType) => signUp(data),
     onSuccess: () =>
       toast.success("Conta criada com sucesso", {
-        duration: 4000,
+        duration: 2000,
         onAutoClose: () => {
           navigate("/signin");
         },
+        position: "top-center"
       }),
   });
 
@@ -180,7 +182,7 @@ export default function SignupPage() {
                 type="submit"
                 className="mt-4 w-full py-2 font-medium"
               >
-                Entrar
+                {form.formState.isSubmitting || mutation.isPending ? <Spinner /> : "Criar conta"}
               </Button>
             </form>
           </CardContent>
