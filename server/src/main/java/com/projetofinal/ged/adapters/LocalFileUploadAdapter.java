@@ -2,9 +2,11 @@ package com.projetofinal.ged.adapters;
 
 import com.projetofinal.ged.domain.UploadedFile;
 import com.projetofinal.ged.infra.exceptions.FileNotCreated;
+import com.projetofinal.ged.infra.exceptions.FileNotFound;
 import com.projetofinal.ged.infra.exceptions.FileNotRemoved;
 import com.projetofinal.ged.infra.exceptions.NotSupportedExtensionFile;
 import com.projetofinal.ged.ports.FileUploadPort;
+import org.springframework.core.io.ByteArrayResource;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,8 +47,7 @@ public class LocalFileUploadAdapter implements FileUploadPort {
 
         } catch (IOException e) {
             throw new FileNotCreated();
-        }
-        catch (NotSupportedExtensionFile e){
+        } catch (NotSupportedExtensionFile e) {
             throw new NotSupportedExtensionFile();
         }
     }
@@ -56,11 +57,21 @@ public class LocalFileUploadAdapter implements FileUploadPort {
         Path fullPath = Paths.get(localFolderPath + "/" + filename);
 
 
-        try{
+        try {
             Files.delete(fullPath);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new FileNotRemoved();
+        }
+    }
+
+    @Override
+    public ByteArrayResource view(String filename) {
+        Path fullPath = Paths.get(localFolderPath + "/" + filename);
+        System.out.println("Nome do arquivo: " + fullPath.toUri());
+        try {
+            return new ByteArrayResource(Files.readAllBytes(fullPath));
+        } catch (IOException e) {
+            throw new FileNotFound();
         }
     }
 
