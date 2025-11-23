@@ -1,4 +1,4 @@
-import { Edit, File } from "lucide-react";
+import { Download, Edit, File } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import DeleteButtonWithAlert from "./DeleteButtonWithAlert";
@@ -30,12 +30,31 @@ interface EditFileProps {
   id: string;
 }
 
+interface DownloadButtonProps {
+  id: string;
+  title: string;
+}
+
+interface FilePreviewDialogProps {
+  id: string;
+  children?: React.ReactNode;
+  fileName: string;
+}
+
 function removeFile(id: string) {
   return FileAPI.delete(id);
 }
 
 function update(id: string, data: FileUpdateFormType) {
   return FileAPI.update(id, data);
+}
+
+function download(id: string) {
+  return FileAPI.download(id);
+}
+
+function view(id: string) {
+  return FileAPI.preview(id);
 }
 
 function EditFile(props: EditFileProps) {
@@ -108,6 +127,110 @@ function EditFile(props: EditFileProps) {
   );
 }
 
+function DownloadButton(props: DownloadButtonProps) {
+  return (
+    <Button
+      onClick={async () => {
+        const file = await download(props.id);
+
+        const blob = new Blob([file.data]);
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = props.title; // você pode pegar do header, se quiser
+        a.click();
+
+        URL.revokeObjectURL(url);
+      }}
+      asChild
+      variant="ghost"
+    >
+      <Download className="w-14 text-primary" />
+    </Button>
+  );
+}
+
+export function FilePreview({
+  id,
+  children,
+  fileName,
+}: FilePreviewDialogProps) {
+  const [open, setOpen] = useState(false);
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
+  const [mimeType, setMimeType] = useState<string>();
+
+  async function handlePreview() {
+    const response = await view(id);
+
+    // mime type
+    const type = response.data.type;
+    setMimeType(type);
+
+    // cria URL temporária
+    const blobUrl = URL.createObjectURL(response.data);
+    setFileUrl(blobUrl);
+
+    setOpen(true);
+  }
+
+  function closeDialog(openState: boolean) {
+    if (!openState && fileUrl) {
+      URL.revokeObjectURL(fileUrl);
+    }
+    setOpen(openState);
+  }
+
+  const isImage = mimeType?.startsWith("image/");
+  const isPdf = mimeType === "application/pdf";
+  const isText =
+    mimeType?.startsWith("text/") || mimeType === "application/json";
+
+  return (
+    <Dialog open={open} onOpenChange={closeDialog}>
+      <DialogTrigger asChild>
+        <span onClick={handlePreview} className="cursor-pointer">
+          {children ?? (
+            <button className="bg-primary text-primary-foreground px-4 py-2 rounded">
+              Ver Arquivo
+            </button>
+          )}
+        </span>
+      </DialogTrigger>
+      <DialogContent className="w-[70vw] h-[70vh] p-0 flex flex-col">
+        <DialogHeader className="p-4 border-b flex justify-between items-center">
+          <DialogTitle>{fileName ?? "Preview do Arquivo"}</DialogTitle>
+        </DialogHeader>
+
+        <div className="w-full flex-1 overflow-hidden flex items-center justify-center bg-muted/30 p-2">
+          {!fileUrl && <p>Nenhum arquivo carregado</p>}
+
+          {fileUrl && isImage && (
+            <iframe src={fileUrl} className="h-full w-full rounded" width="100%" height="100%" />
+          )}
+
+          {fileUrl && isPdf && (
+            <iframe src={fileUrl} className="w-full h-full border-0 rounded" />
+          )}
+
+          {fileUrl && isText && (
+            <iframe
+              src={fileUrl}
+              className="w-full h-full border-0 bg-white rounded p-2"
+            />
+          )}
+
+          {fileUrl && !isImage && !isPdf && !isText && (
+            <p className="text-muted-foreground text-center">
+              ❌ Preview não suportado para este tipo de arquivo.
+            </p>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function FileCard(props: FileCardProps) {
   const queryClient = useQueryClient();
   const mutation = useMutation({
@@ -123,11 +246,16 @@ export default function FileCard(props: FileCardProps) {
   return (
     <Card className="w-lg max-w-sm p-4">
       <CardHeader className="flex flex-row items-center gap-3 pb-2">
-        <File className="h-6 w-6" />
         <CardTitle className="text-lg w-full">
-          <div className="flex w-full justify-between items-center">
-            {props.title}
+          <div className="flex flex-col w-full justify-between items-center gap-4">
+            <div className="flex items-center justify-between min-w-28 gap-4">
+              <FilePreview id={props.id} fileName={props.title}>
+                <File className="h-6 w-6" />
+                {props.title}
+              </FilePreview>
+            </div>
             <div className="flex items-center justify-between gap-2">
+              <DownloadButton id={props.id} title={props.title} />
               <EditFile id={props.id} />
 
               <DeleteButtonWithAlert

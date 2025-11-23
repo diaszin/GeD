@@ -1,6 +1,6 @@
 import { AuthToken } from "@/config/AuthToken";
 import axios from "axios";
-import type { File as TFile  } from "@/types/File";
+import type { File as TFile } from "@/types/File";
 
 export class FileAPI {
   private static readonly baseURl = import.meta.env.VITE_BACKEND_URL;
@@ -46,6 +46,36 @@ export class FileAPI {
       headers: {
         Authorization: token,
       },
+    });
+
+    return response;
+  }
+
+  static async download(id: string) {
+    const token = "Bearer " + AuthToken.get();
+
+    const response = await axios.get(this.url + "/download", {
+      params: { id },
+      headers: {
+        Authorization: token,
+      },
+      responseType: "blob",
+      withCredentials: true,
+    });
+
+    return response;
+  }
+
+  static async preview(id: string) {
+    const token = "Bearer " + AuthToken.get();
+
+    const response = await axios.get(this.url + "/view", {
+      params: { id },
+      headers: {
+        Authorization: token,
+      },
+      responseType: "blob",
+      withCredentials: true,
     });
 
     return response;

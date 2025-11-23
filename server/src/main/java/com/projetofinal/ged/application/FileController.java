@@ -113,6 +113,8 @@ public class FileController {
 
         ByteArrayResource resource = this.uploadService.view(file.getFilePath());
 
+
+
         HttpHeaders header = new HttpHeaders();
         header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getTitle()+'.'+file.getExtension() + "\"");
 
@@ -122,6 +124,7 @@ public class FileController {
 
         return ResponseEntity.ok()
                 .headers(header)
+                .contentLength(resource.contentLength())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }

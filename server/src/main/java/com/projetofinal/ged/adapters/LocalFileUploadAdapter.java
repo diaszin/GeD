@@ -38,7 +38,6 @@ public class LocalFileUploadAdapter implements FileUploadPort {
             // Processo de escrita do arquivo
             FileOutputStream writer = new FileOutputStream(fullPath.toFile());
             writer.write(fileBytes);
-            writer.write(fileBytes);
 
             writer.close();
 
