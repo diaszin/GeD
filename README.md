@@ -4,8 +4,6 @@
 
 O GeD é um sistema de armazenamento de documentos. Transformando arquivos físicos em arquivos virtuais
 
-
-
 # 🛠️Tecnologias usadass
 
 ## Front-end
@@ -32,8 +30,6 @@ O GeD é um sistema de armazenamento de documentos. Transformando arquivos físi
 
 * Docker
 
-
-
 ## ▶️ Como rodar localmente
 
 ## Front-end
@@ -46,11 +42,9 @@ O GeD é um sistema de armazenamento de documentos. Transformando arquivos físi
 
 2. Após isso, rode o comando `yarn dev`
 
-
-
 ## Back-end
 
-1.  Crie um arquivo `.env` na pasta `app` e preencha com os seguintes valores:
+1. Crie um arquivo `.env` na pasta `app` e preencha com os seguintes valores:
 
 ```bash
 DB_PORT=5432
@@ -65,24 +59,14 @@ JDBC_URL=jdbc:postgresql://<host ou serviço>:${DB_PORT}/${POSTGRES_DB}
 
 2. Se tive o Docker instalado em sua máquina, execute `docker compose up -d --build`. Caso não, execute `./gradlew assemble | java -jar <nome do programa buildado>`
 
-
-
 ## 🔖Objetivo
 
 A proposta desse projeto é construir um sistema com requisitos minimamentes funcionais e operacionais e como objetivo pessoal, seguir a **arquitetura hexagonal** na construção de novas features
-
-
 
 ## 👤 Autor
 
 * Kaique Dias Pereira
 
-
-
-
-
 ## 🌐 Link
 
-**Link de produção**: https://gedapp-production-20c4.up.railway.app
-
-
+**Link de produção**: https://gedapp-production-20c4.up.railway.app/signin
