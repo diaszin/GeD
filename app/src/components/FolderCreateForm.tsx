@@ -12,6 +12,7 @@ import {
 import { Button } from "./ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FolderAPI } from "@/api/FolderAPI";
+import { Spinner } from "./ui/spinner";
 
 interface FolderCreateFormProps {
   projectID: string;
@@ -65,6 +66,9 @@ export default function FolderCreateForm(props: FolderCreateFormProps) {
         </legend>
       </form>
       <DialogFooter>
+        <Button disabled={!form.formState.isValid} onClick={form.handleSubmit(({ title }) => mutation.mutate({ title }))}>
+          {mutation.isPending || form.formState.isLoading ? <Spinner/> : 'Criar'}
+        </Button>
         <DialogClose>
           <Button variant="destructive">Cancelar</Button>
         </DialogClose>

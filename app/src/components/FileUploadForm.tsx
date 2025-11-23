@@ -14,6 +14,7 @@ import { FileAPI } from "@/api/FileAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormsSubmitError } from "./FormsSubmitError";
 import type { AxiosError, AxiosResponse } from "axios";
+import { Spinner } from "./ui/spinner";
 
 function upload(data: FileUploadFormType, folder: string) {
   const file: File = data.file[0]; // Onde fica o arquivo
@@ -114,7 +115,7 @@ export default function FileUploadForm(props: FileUploadFormProps) {
           )}
           disabled={!form.formState.isValid}
         >
-          Importar
+          {mutation.isPending || form.formState.isLoading ? <Spinner/> : 'Importar'}
         </Button>
       </DialogFooter>
     </DialogContent>
