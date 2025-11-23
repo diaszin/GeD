@@ -119,14 +119,19 @@ export default function SignupPage() {
                     >
                       Digite sua senha
                     </Label>
-                    <Input
-                      {...field}
-                      type="password"
-                      id="password"
-                      name="password"
-                      autoComplete="password"
-                      className="mt-2"
-                    />
+                    <div className="flex flex-col">
+                      <Input
+                        {...field}
+                        type="password"
+                        id="password"
+                        name="password"
+                        autoComplete="password"
+                        className="mt-2"
+                      />
+                      <ul className="text-gray-500 text-[0.7rem] list-disc ml-3.5">
+                        <li>A senha deve conter no mínimo de 8 caracteres</li>
+                      </ul>
+                    </div>
                   </>
                 )}
               />
@@ -140,16 +145,19 @@ export default function SignupPage() {
                       htmlFor="confirm-password"
                       className="text-sm font-medium text-foreground dark:text-foreground"
                     >
-                      Digite sua senha
+                      Digite sua senha novamente
                     </Label>
-                    <Input
-                      {...field}
-                      type="password"
-                      id="confirm-password"
-                      name="confirm-password"
-                      autoComplete="confirm-password"
-                      className="mt-2"
-                    />
+                    <div className="flex flex-col">
+                      <Input
+                        {...field}
+                        type="password"
+                        id="confirm-password"
+                        name="confirm-password"
+                        autoComplete="confirm-password"
+                        className="mt-2"
+                      />
+                      
+                    </div>
                   </>
                 )}
               />
