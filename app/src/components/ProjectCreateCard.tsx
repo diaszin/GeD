@@ -107,10 +107,7 @@ export default function ProjectCreateCard(props: ProjectCreateCardProps) {
             <Button variant="destructive">Cancelar</Button>
           </DialogClose>
           <Button
-            onClick={() =>
-              currentForm.handleSubmit((data) => mutation.mutate(data))
-            }
-            type="submit"
+            onClick={currentForm.handleSubmit((data) => mutation.mutate(data))}
             variant="outline"
           >
             {currentForm.formState.isLoading || mutation.isPending ? (
