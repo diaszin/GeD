@@ -66,7 +66,3 @@ A proposta desse projeto é construir um sistema com requisitos minimamentes fun
 ## 👤 Autor
 
 * Kaique Dias Pereira
-
-## 🌐 Link
-
-**Link de produção**: https://gedapp-production-20c4.up.railway.app/signin
